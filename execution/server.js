@@ -5,8 +5,8 @@ const path = require('path');
 const PORT = 3001;
 
 http.createServer((req, res) => {
-    let filePath = '.' + req.url;
-    if (filePath == './') filePath = './index.html';
+    let filePath = './public' + req.url;
+    if (filePath == './public/') filePath = './public/index.html';
 
     const extname = path.extname(filePath);
     let contentType = 'text/html';
