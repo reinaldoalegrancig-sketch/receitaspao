@@ -1,9 +1,4 @@
 {
-  "public": true,
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }

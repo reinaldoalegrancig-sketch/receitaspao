@@ -2,6 +2,7 @@
   "name": "receitaspao",
   "version": "1.0.0",
   "scripts": {
-    "start": "node execution/server.js"
+    "start": "node execution/server.js",
+    "build": "node execution/build.js"
   }
 }
