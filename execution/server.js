@@ -5,8 +5,17 @@ const path = require('path');
 const PORT = 3001;
 
 http.createServer((req, res) => {
-    let filePath = './public' + req.url;
-    if (filePath == './public/') filePath = './public/index.html';
+    let url = req.url.split('?')[0]; // Remove query params
+    let filePath = './public' + url;
+
+    // Vercel rewrites mimic
+    if (url === '/') {
+        filePath = './public/index.html';
+    } else if (url === '/upsell') {
+        filePath = './public/upsell.html';
+    } else if (!url.includes('.') && fs.existsSync('./public' + url + '.html')) {
+        filePath = './public' + url + '.html';
+    }
 
     const extname = path.extname(filePath);
     let contentType = 'text/html';
