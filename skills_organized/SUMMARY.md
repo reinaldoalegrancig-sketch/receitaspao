@@ -1327,3 +1327,20 @@ Total Skills: 1298
 - [zoho crm automation](workflow/zoho-crm-automation/SKILL.md)
 - [zoom automation](workflow/zoom-automation/SKILL.md)
 
+
+ # #   D E S I G N   V 8 
+ 
+ -   [ d e s i g n   s p e l l s ] ( d e s i g n - v 8 / d e s i g n - s p e l l s / S K I L L . m d ) 
+ -   [ m a g i c   a n i m a t o r ] ( d e s i g n - v 8 / m a g i c - a n i m a t o r / S K I L L . m d ) 
+ -   [ f r o n t e n d   d e s i g n ] ( d e s i g n - v 8 / f r o n t e n d - d e s i g n / S K I L L . m d ) 
+ -   [ a n t i g r a v i t y   d e s i g n   e x p e r t ] ( d e s i g n - v 8 / a n t i g r a v i t y - d e s i g n - e x p e r t / S K I L L . m d ) 
+ -   [ r a d i x   u i   d e s i g n   s y s t e m ] ( d e s i g n - v 8 / r a d i x - u i - d e s i g n - s y s t e m / S K I L L . m d ) 
+ -   [ w e b   a c c e s s i b i l i t y ] ( d e s i g n - v 8 / w e b - a c c e s s i b i l i t y / S K I L L . m d ) 
+ -   [ u i   u x   p r o   m a x ] ( d e s i g n - v 8 / u i - u x - p r o - m a x / S K I L L . m d ) 
+ -   [ w e b   d e s i g n   g u i d e l i n e s ] ( d e s i g n - v 8 / w e b - d e s i g n - g u i d e l i n e s / S K I L L . m d ) 
+ -   [ a n i m e j s   a n i m a t i o n ] ( d e s i g n - v 8 / a n i m e j s - a n i m a t i o n / S K I L L . m d ) 
+ -   [ c l a u d e   d 3 j s   s k i l l ] ( d e s i g n - v 8 / c l a u d e - d 3 j s - s k i l l / S K I L L . m d ) 
+ -   [ d a t a   s t o r y t e l l i n g ] ( d e s i g n - v 8 / d a t a - s t o r y t e l l i n g / S K I L L . m d ) 
+ -   [ c a n v a s   d e s i g n ] ( d e s i g n - v 8 / c a n v a s - d e s i g n / S K I L L . m d ) 
+ -   [ f i x i n g   m o t i o n   p e r f o r m a n c e ] ( d e s i g n - v 8 / f i x i n g - m o t i o n - p e r f o r m a n c e / S K I L L . m d )  
+ 
