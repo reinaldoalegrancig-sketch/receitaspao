@@ -1,732 +1,561 @@
-/* 
-   DESIGN V8 LAYER - ENHANCEMENT 
-   This layer adds premium aesthetics on top of Elementor Core.
+/*
+  DESIGN V11 — 13 SKILLS EDITION
+  Skills: design-spells, magic-animator, frontend-design,
+  antigravity-design-expert, radix-ui-design-system, web-accessibility,
+  ui-ux-pro-max, web-design-guidelines, animejs-animation,
+  claude-d3js-skill, data-storytelling, canvas-design, fixing-motion-performance
 */
 
+/* =============================================
+   TOKENS — radix-ui-design-system
+   ============================================= */
 :root {
-    --v8-gold: #F7BD57;
-    --v8-gold-glow: rgba(247, 189, 87, 0.3);
-    --v8-bg-dark: #0A0A0A;
-    --v8-glass: rgba(255, 255, 255, 0.02);
-    --v8-glass-border: rgba(255, 255, 255, 0.07);
+  --gold:        #F7BD57;
+  --gold-dark:   #EC9D00;
+  --gold-light:  #EEAF49;
+  --gold-glow:   rgba(247,189,87,0.35);
+  --gold-glass:  rgba(247,189,87,0.08);
+  --bg:          #080808;
+  --glass-bg:    rgba(255,255,255,0.03);
+  --glass-border:rgba(255,255,255,0.09);
+  --gold-border: rgba(247,189,87,0.22);
+  --radius-card: 24px;
+  --radius-btn:  100px;
+  --ease-out:    cubic-bezier(0.16,1,0.3,1);
+  --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+  --green:       #00D552;
+  --red:         #FF4500;
+}
+
+/* =============================================
+   BASE — frontend-design + fixing-motion-performance
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-    background: var(--v8-bg-dark) !important;
-    color: #FFF !important;
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    overflow-x: hidden;
+  background: var(--bg) !important;
+  color: #fff !important;
+  font-family: 'Inter', 'Sora', sans-serif;
+  overflow-x: hidden;
 }
 
-/* Glassmorphism Enhancement - Applied only to parent containers to avoid breaking nested widgets */
-.e-parent, .elementor-section.elementor-top-section {
-    background: var(--v8-glass) !important;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--v8-glass-border) !important;
-    border-radius: 30px;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    padding: 15px 15px !important;
-    transition: all 0.5s ease;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-    min-height: auto !important; /* Force reduction of excessive min-heights */
+/* Noise texture — premium feel */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 
-.e-parent:hover, .elementor-section.elementor-top-section:hover {
-    border-color: rgba(247, 189, 87, 0.2) !important;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-}
-
-/* Typography Harmony */
-h1, h2, h3, .elementor-heading-title, .elementor-icon-list-text, p {
-    text-shadow: 0 1px 5px rgba(0,0,0,0.2);
-}
-
-/* Force White only for V8 containers / Glassmorphism */
-body, .v8-glass, .e-parent {
-    color: #FFFFFF !important;
-}
-
-.e-parent .elementor-heading-title, .e-parent p, .e-parent .elementor-icon-list-text {
-    color: #FFFFFF !important;
-}
-
-/* Fix for Light Sections (Recipes) - Direct ID Targeting for absolute stability */
-.elementor-element-9d70338, .elementor-element-0520d6f, .elementor-element-c6f6631,
-[style*="background-color:#F"], [style*="background-color:#f"] {
-    color: #1A120C !important;
-}
-.elementor-element-9d70338 h1, .elementor-element-9d70338 h2, .elementor-element-9d70338 h3, .elementor-element-9d70338 .elementor-heading-title, .elementor-element-9d70338 .elementor-icon-list-text,
-.elementor-element-0520d6f .elementor-heading-title, .elementor-element-0520d6f .elementor-icon-list-text,
-.elementor-element-c6f6631 .elementor-heading-title, .elementor-element-c6f6631 .elementor-icon-list-text {
-    color: #1A120C !important;
-    text-shadow: none !important;
-}
-
-/* Ensure Elementor Fonts take precedence when set */
-.elementor-element[data-settings*="font-family"] .elementor-heading-title,
-.elementor-heading-title[style*="font-family"] {
-    font-family: inherit !important;
-}
-
-/* Fix for "Broken Letters" - Ensure fonts load smoothly */
-* {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}
-
-/* Atmosphere Glows */
+/* =============================================
+   BACKGROUND GLOWS — antigravity-design-expert
+   ============================================= */
 .v8-bg-glow {
-    position: fixed;
-    width: 80vw;
-    height: 80vw;
-    background: radial-gradient(circle, var(--v8-gold-glow) 0%, rgba(0,0,0,0) 70%);
-    border-radius: 50%;
-    filter: blur(100px);
-    z-index: -1;
-    pointer-events: none;
-    opacity: 0.4;
+  position: fixed;
+  width: 80vw; height: 80vw;
+  background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(90px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.45;
+  will-change: transform;
+}
+#glow-1 { top: -20%; left: -20%; animation: glow-drift 18s ease-in-out infinite alternate; }
+#glow-2 { bottom: -20%; right: -20%; animation: glow-drift 22s ease-in-out infinite alternate-reverse; }
+
+@keyframes glow-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(3vw, 3vh) scale(1.1); }
 }
 
-#glow-1 { top: -20%; left: -20%; }
-#glow-2 { bottom: -20%; right: -20%; }
-
-/* Suprimir lixo residual do snapshot */
-.sf-hidden, .sf-dump, #sf-bar, .dialog-type-alert, .elementor-edit-area-active {
-    display: none !important;
-}
-
-/* Premium Button Overwrite */
-.elementor-button, .eael-creative-button {
-    background: var(--v8-gold) !important;
-    color: #000 !important;
-    border-radius: 100px !important;
-    font-weight: 800 !important;
-    letter-spacing: 1px;
-    text-transform: uppercase !important;
-    padding: 20px 45px !important;
-    box-shadow: 0 15px 30px rgba(247, 189, 87, 0.3) !important;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
-}
-
-.elementor-button:hover, .eael-creative-button:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 20px 40px rgba(247, 189, 87, 0.5) !important;
-}
-
-/* Image alignment fix "Pente Fino" */
-.elementor-widget-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Icon List Style Improvement */
-.elementor-icon-list-icon i {
-    color: var(--v8-gold) !important;
-    filter: drop-shadow(0 0 5px var(--v8-gold-glow));
-}
-
-.elementor-icon-list-text {
-    color: inherit !important; /* Allow the section to determine text color for better contrast */
-    transition: color 0.3s;
-}
-
-/* 
-   --- THE 13 CONVERSION SKILLS: ANIMATION FOUNDATION ---
-*/
-
-/* 1. design-spells: Hover physics */
-.v8-button-spell:hover {
-    transform: translateY(-5px) scale(1.02);
-    filter: brightness(1.1);
-}
-
-/* 2. magic-animator: Reveal foundation */
-.v8-reveal {
-    opacity: 0;
-    will-change: transform, opacity;
-}
-
-/* 3. frontend-design: Section Glows */
-.v8-glow-section {
-    position: relative;
-    overflow: hidden;
-}
-.v8-glow-section::after {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(247, 189, 87, 0.05) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* 4. antigravity-design-expert: Z-depth */
-.v8-z-depth {
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    transform-style: preserve-3d;
-}
-.v8-z-depth:hover {
-    transform: perspective(1000px) translateZ(30px) rotateX(2deg);
-}
-
-/* 5. radix-ui-design-system: Focus & Accessibility */
-.v8-accessible-focus:focus {
-    outline: 3px solid var(--v8-gold);
-    outline-offset: 4px;
-}
-
-/* 6. web-accessibility: Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-    .v8-reveal, .v8-z-depth {
-        animation: none !important;
-        transition: opacity 0.1s !important;
-        transform: none !important;
-        opacity: 1 !important;
-    }
-}
-
-/* 7. ui-ux-pro-max: High contrast spacing */
-.v8-spacing-pro {
-    margin-top: 20px !important;
-    margin-bottom: 20px !important;
-}
-
-/* 8. web-design-guidelines: Performance layers */
-.v8-perf-layer {
-    backface-visibility: hidden;
-    transform: translateZ(0);
-}
-
-/* 9. animejs-animation: Reveal styles */
-.v8-reveal-up { transform: translateY(40px); }
-.v8-reveal-left { transform: translateX(40px); }
-.v8-reveal-right { transform: translateX(-40px); }
-
-/* 10. claude-d3js-skill: Wheat icon float */
-@keyframes wheat-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(5deg); }
-}
-.v8-wheat-float {
-    animation: wheat-float 10s ease-in-out infinite;
-}
-
-/* 11. data-storytelling: Narrative focus */
-.v8-focus-item {
-    transition: opacity 0.4s ease;
-}
-.v8-focus-item:not(:hover) {
-    opacity: 0.8;
-}
-
-/* 12. canvas-design: Particle container sync */
+/* =============================================
+   PARTICLES CANVAS — canvas-design
+   ============================================= */
 #v8-particles {
-    mix-blend-mode: screen;
+  position: fixed; inset: 0;
+  z-index: -1; pointer-events: none;
+  mix-blend-mode: screen;
 }
 
-/* 13. fixing-motion-performance: Will-change */
-.v8-fast-animate {
-    will-change: transform, opacity;
+/* =============================================
+   SCROLL PROGRESS BAR — ui-ux-pro-max
+   ============================================= */
+#v8-scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 4px; width: 0%;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+  z-index: 99999;
+  pointer-events: none;
+  transition: width 0.12s linear;
+  box-shadow: 0 0 14px var(--gold), 0 0 4px rgba(255,255,255,0.4);
+  will-change: width;
 }
 
-/* 14. Responsive - [Skill: frontend-design] */
-@media (max-width: 768px) {
-    :root {
-        --v8-spacing-mobile: 15px;
-    }
-
-    body {
-        font-size: 15px;
-    }
-
-    .e-parent, .elementor-section.elementor-top-section {
-        margin-top: 8px !important;
-        margin-bottom: 8px !important;
-        margin-left: 5px !important;
-        margin-right: 5px !important;
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-        padding-top: 15px !important;
-        padding-bottom: 15px !important;
-        border-radius: 15px;
-        width: calc(100% - 10px) !important;
-    }
-
-    /* Headline scaling */
-    h1, .elementor-heading-title.elementor-size-xl {
-        font-size: 1.8rem !important;
-        line-height: 1.1 !important;
-    }
-
-    h2, .elementor-heading-title.elementor-size-large {
-        font-size: 1.4rem !important;
-        line-height: 1.2 !important;
-    }
-
-    /* Button Ergonomics - [Skill: ui-ux-pro-max] */
-    .elementor-button, .eael-creative-button {
-        width: 100% !important;
-        padding: 18px 30px !important;
-        font-size: 1rem !important;
-        text-align: center;
-    }
-
-    /* Recipe Column Fixes */
-    .elementor-element-9d70338, .elementor-element-0520d6f, .elementor-element-c6f6631 {
-        margin-bottom: 20px !important;
-        padding: 20px !important;
-    }
-
-    /* Video/Image stability */
-    .elementor-widget-video, .elementor-widget-image {
-        margin-bottom: 15px !important;
-    }
-
-    /* Glow position adjustment */
-    #glow-1, #glow-2 {
-        width: 120vw;
-        height: 120vw;
-        opacity: 0.3;
-    }
+/* =============================================
+   GLASSMORPHISM CONTAINERS — antigravity-design-expert
+   ============================================= */
+.e-parent,
+.elementor-section.elementor-top-section {
+  background: var(--glass-bg) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-card) !important;
+  margin: 10px auto !important;
+  padding: 20px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35),
+              0 1px 0 rgba(255,255,255,0.06) inset !important;
+  transition: border-color 0.4s var(--ease-out),
+              box-shadow 0.4s var(--ease-out),
+              transform 0.4s var(--ease-out) !important;
 }
 
-/* Specific fix for very small screens (Skill: Web-Accessibility) */
-@media (max-width: 480px) {
-    .elementor-heading-title {
-        font-size: 1.5rem !important;
-    }
-    
-    .e-con-inner {
-        padding: 0 !important;
-    }
-    
-    .v8-reveal-left, .v8-reveal-right {
-        transform: translateY(20px) !important; /* Switch to simple slide-up for narrow screens */
-    }
+.e-parent:hover,
+.elementor-section.elementor-top-section:hover {
+  border-color: var(--gold-border) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55),
+              0 0 40px rgba(247,189,87,0.08),
+              0 1px 0 rgba(255,255,255,0.08) inset !important;
 }
 
-/* --- FINAL POLISH: CONTRAST & MOBILE STABILITY --- */
-/* Target sections that have light beige/gray backgrounds in Elementor */
-.elementor-element-71a4139, .elementor-element-cd2f9e9, .elementor-element-9830bcc, 
-.elementor-element-04564b1, .elementor-element-5aabcd7 {
-    color: #1A120C !important;
+/* =============================================
+   TYPOGRAPHY — ui-ux-pro-max
+   ============================================= */
+h1, h2, h3,
+.elementor-heading-title {
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  line-height: 1.15 !important;
 }
 
-.elementor-element-71a4139 .elementor-heading-title, 
+.e-parent .elementor-heading-title,
+.e-parent p,
+.e-parent .elementor-icon-list-text {
+  color: #fff !important;
+}
+
+/* Light sections keep dark text */
+.elementor-element-9d70338,
+.elementor-element-0520d6f,
+.elementor-element-c6f6631,
+[style*="background-color:#F"],
+[style*="background-color:#f"] { color: #1A120C !important; }
+
+.elementor-element-9d70338 .elementor-heading-title,
+.elementor-element-9d70338 .elementor-icon-list-text,
+.elementor-element-0520d6f .elementor-heading-title,
+.elementor-element-0520d6f .elementor-icon-list-text,
+.elementor-element-c6f6631 .elementor-heading-title,
+.elementor-element-c6f6631 .elementor-icon-list-text,
+.elementor-element-71a4139 .elementor-heading-title,
 .elementor-element-71a4139 p,
-.elementor-element-cd2f9e9 .elementor-heading-title, 
+.elementor-element-cd2f9e9 .elementor-heading-title,
 .elementor-element-cd2f9e9 p,
-.elementor-element-9830bcc .elementor-heading-title, 
+.elementor-element-9830bcc .elementor-heading-title,
 .elementor-element-9830bcc p,
 .elementor-element-04564b1 .elementor-heading-title,
 .elementor-element-04564b1 p,
 .elementor-element-5aabcd7 .elementor-heading-title,
 .elementor-element-5aabcd7 p {
-    color: #1A120C !important;
-    text-shadow: none !important;
+  color: #1A120C !important;
+  text-shadow: none !important;
 }
 
-/* Fix for the Sticky Offer Banner in the footer */
-#countdown-timer {
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
-    border-bottom: 2px solid rgba(255,255,255,0.2);
-}
+/* Font inheritance */
+.elementor-heading-title[style*="font-family"] { font-family: inherit !important; }
 
-/* Pulse animation for the + icon to draw attention */
-@keyframes plus-pulse {
-    0% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.8; }
-    100% { transform: scale(1); opacity: 1; }
-}
-.fa-plus {
-    display: inline-block;
-    animation: plus-pulse 2s infinite ease-in-out;
-}
-
-/* ============================================================
-   DESIGN V9 — ELEVATION LAYER
-   Skills: design-spells, magic-animator, antigravity-design-expert,
-           fixing-motion-performance, ui-ux-pro-max, frontend-design
-   ============================================================ */
-
-/* 1. NOISE TEXTURE OVERLAY — premium feel (Skill: frontend-design) */
-body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: 0.025;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
-}
-
-/* 2. SCROLL PROGRESS BAR — (Skill: ui-ux-pro-max) */
-#v8-scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    width: 0%;
-    background: linear-gradient(90deg, #EC9D00, #F7BD57, #EEAF49);
-    z-index: 9999;
-    pointer-events: none;
-    transition: width 0.1s linear;
-    box-shadow: 0 0 8px rgba(247, 189, 87, 0.8);
-    will-change: width;
-}
-
-/* 3. SHIMMER NOS BOTÕES CTA — (Skill: design-spells) */
+/* =============================================
+   CTA BUTTONS — design-spells + magic-animator
+   ============================================= */
 @keyframes btn-shimmer {
-    0%   { transform: translateX(-100%) skewX(-15deg); }
-    100% { transform: translateX(250%) skewX(-15deg); }
+  0%   { transform: translateX(-120%) skewX(-15deg); }
+  100% { transform: translateX(250%)  skewX(-15deg); }
+}
+@keyframes btn-pulse-shadow {
+  0%,100% { box-shadow: 0 8px 30px rgba(247,189,87,0.4); }
+  50%      { box-shadow: 0 12px 50px rgba(247,189,87,0.65), 0 0 80px rgba(247,189,87,0.2); }
 }
 
-.elementor-button, .eael-creative-button {
-    position: relative;
-    overflow: hidden;
+.elementor-button,
+.eael-creative-button {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 50%, var(--gold-light) 100%) !important;
+  color: #000 !important;
+  border-radius: var(--radius-btn) !important;
+  font-weight: 800 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  padding: 20px 48px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border: none !important;
+  animation: btn-pulse-shadow 2.5s ease-in-out infinite !important;
+  transition: transform 0.35s var(--ease-spring) !important;
+  will-change: transform !important;
 }
 
-.elementor-button::after, .eael-creative-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    animation: btn-shimmer 2.8s ease-in-out infinite;
-    pointer-events: none;
-    will-change: transform;
+.elementor-button::after,
+.eael-creative-button::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 45%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+  animation: btn-shimmer 2.6s ease-in-out infinite;
+  pointer-events: none;
 }
 
-/* 4. GRADIENT TEXT no hero span dourado — (Skill: magic-animator) */
-.elementor-element-d862252 .elementor-heading-title span,
-.elementor-element-d862252 span[style*="color:#f7bd57"],
-.elementor-element-d862252 span[style*="color:#F7BD57"] {
-    background: linear-gradient(90deg, #F7BD57 0%, #EC9D00 40%, #EEAF49 70%, #F7BD57 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradient-pan 4s linear infinite;
-    display: inline-block;
+.elementor-button:hover,
+.eael-creative-button:hover {
+  transform: scale(1.06) translateY(-4px) !important;
 }
 
-@keyframes gradient-pan {
-    0%   { background-position: 0% center; }
-    100% { background-position: 200% center; }
-}
-
-/* 5. HOVER NAS IMAGENS — (Skill: antigravity-design-expert) */
+/* =============================================
+   IMAGES — design-spells
+   ============================================= */
 .elementor-widget-image img {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: 16px;
-    will-change: transform;
+  border-radius: 16px;
+  transition: transform 0.45s var(--ease-out),
+              box-shadow 0.45s var(--ease-out),
+              filter 0.45s ease !important;
+  will-change: transform;
 }
-
 .elementor-widget-image:hover img {
-    transform: scale(1.04);
-    box-shadow: 0 20px 60px rgba(247, 189, 87, 0.25), 0 8px 20px rgba(0,0,0,0.4);
+  transform: scale(1.05) translateY(-4px) !important;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55),
+              0 0 30px var(--gold-glow) !important;
+  filter: brightness(1.04) !important;
+}
+.elementor-widget-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 6. SEPARADOR DOURADO ENTRE SEÇÕES — (Skill: frontend-design) */
-.e-parent + .e-parent::before,
-.elementor-section.elementor-top-section + .elementor-section.elementor-top-section::before {
-    content: '';
-    display: block;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(247,189,87,0.3), transparent);
-    margin: 0 10%;
-    opacity: 0;
-    animation: divider-fade 0.8s ease forwards;
+/* =============================================
+   ICON LIST — design-spells
+   ============================================= */
+.elementor-icon-list-icon i {
+  color: var(--gold) !important;
+  filter: drop-shadow(0 0 6px var(--gold-glow));
+  transition: transform 0.3s var(--ease-out), filter 0.3s ease;
+}
+.elementor-icon-list-item {
+  border-radius: 10px;
+  padding: 5px 10px !important;
+  transition: transform 0.3s var(--ease-out), background 0.3s ease;
+  will-change: transform;
+}
+.elementor-icon-list-item:hover {
+  transform: translateX(8px) !important;
+  background: rgba(247,189,87,0.07) !important;
+}
+.elementor-icon-list-item:hover .elementor-icon-list-icon i {
+  transform: scale(1.25) !important;
+  filter: drop-shadow(0 0 10px var(--gold)) brightness(1.3);
+}
+.elementor-icon-list-text {
+  color: inherit !important;
+  transition: color 0.3s;
 }
 
-@keyframes divider-fade {
-    to { opacity: 1; }
-}
-
-/* 7. PULSE NO COUNTDOWN TIMER — (Skill: design-spells) */
-@keyframes timer-pulse {
-    0%, 100% { box-shadow: 0 -10px 30px rgba(0,0,0,0.3), 0 0 0 0 rgba(247,189,87,0); }
-    50%       { box-shadow: 0 -10px 30px rgba(0,0,0,0.3), 0 0 20px 4px rgba(247,189,87,0.25); }
-}
-
-#countdown-timer {
-    animation: timer-pulse 3s ease-in-out infinite;
-}
-
-/* 8. GLASSMORPHISM ELEVADO NOS CARDS DE BÔNUS — (Skill: antigravity-design-expert) */
-.elementor-element[data-id] .elementor-widget-image-box,
-.elementor-widget-icon-box,
-.elementor-widget-testimonial {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: 20px;
-    will-change: transform;
-}
-
-.elementor-element[data-id] .elementor-widget-image-box:hover,
-.elementor-widget-icon-box:hover,
-.elementor-widget-testimonial:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 30px 70px rgba(0,0,0,0.4), 0 0 30px rgba(247,189,87,0.12);
-}
-
-/* 9. CARD REVEAL COM SCALE — (Skill: magic-animator) */
-.v8-card-reveal {
-    opacity: 0;
-    transform: scale(0.95) translateY(20px);
-    will-change: transform, opacity;
-}
-
-/* 10. HERO ENTRADA — elementos prontos para timeline Anime.js */
-.v8-hero-name    { opacity: 0; transform: translateY(-20px); will-change: transform, opacity; }
-.v8-hero-title   { opacity: 0; transform: translateY(30px);  will-change: transform, opacity; }
-.v8-hero-sub     { opacity: 0; transform: translateY(20px);  will-change: transform, opacity; }
-
-/* Reduzido motion — mantém acessibilidade (Skill: web-accessibility) */
-@media (prefers-reduced-motion: reduce) {
-    #v8-scroll-progress { transition: none; }
-    .elementor-button::after, .eael-creative-button::after { animation: none; }
-    .elementor-element-d862252 .elementor-heading-title span { animation: none; -webkit-text-fill-color: #F7BD57; }
-    #countdown-timer { animation: none; }
-    .v8-hero-name, .v8-hero-title, .v8-hero-sub,
-    .v8-card-reveal { opacity: 1 !important; transform: none !important; }
-}
-
-/* ============================================================
-   DESIGN V10 — ADVANCED INTERACTIONS
-   Skills: design-spells, magic-animator, landing-page-generator,
-           antigravity-design-expert, fixing-motion-performance
-   ============================================================ */
-
-/* 1. FAQ ACCORDION — indicador dourado + hover (Skill: design-spells) */
+/* =============================================
+   FAQ ACCORDION — design-spells
+   ============================================= */
 .eael-adv-accordion .eael-accordion-list {
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 6px !important;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    border-left: 3px solid transparent;
-    will-change: transform;
+  border-radius: 14px !important;
+  margin-bottom: 8px !important;
+  border-left: 4px solid transparent !important;
+  transition: border-left-color 0.3s ease,
+              background 0.3s ease,
+              transform 0.3s var(--ease-out) !important;
 }
-
 .eael-adv-accordion .eael-accordion-list:hover {
-    transform: translateX(4px);
-    border-left-color: var(--v8-gold);
-    background: rgba(247, 189, 87, 0.04) !important;
+  border-left-color: rgba(247,189,87,0.5) !important;
+  background: rgba(247,189,87,0.05) !important;
+  transform: translateX(5px);
 }
-
 .eael-adv-accordion .eael-accordion-list.eael-accordion-active {
-    border-left-color: var(--v8-gold) !important;
-    background: rgba(247, 189, 87, 0.06) !important;
+  border-left-color: var(--gold) !important;
+  background: rgba(247,189,87,0.08) !important;
 }
-
-.eael-adv-accordion .eael-accordion-tab-title {
-    transition: color 0.25s ease;
-    padding-left: 12px !important;
-}
-
 .eael-adv-accordion .eael-accordion-list.eael-accordion-active .eael-accordion-tab-title {
-    color: var(--v8-gold) !important;
+  color: var(--gold) !important;
 }
-
-/* Ícone FAQ gira ao abrir */
 .eael-adv-accordion .eael-accordion-tab-title .accordion-tab-icon {
-    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    display: inline-flex;
-    align-items: center;
+  transition: transform 0.35s var(--ease-out);
 }
 .eael-adv-accordion .eael-accordion-list.eael-accordion-active .accordion-tab-icon {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
-/* 2. PROGRESS BAR — gradiente e setup para JS (Skill: magic-animator) */
-.elementor-element-4822645 .elementor-progress-bar {
-    background: linear-gradient(90deg, #FF4500, #EC9D00, #F7BD57) !important;
-    width: 0% !important; /* JS anima para 87% */
-    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 0 10px rgba(247, 189, 87, 0.5);
-    will-change: width;
+/* =============================================
+   PROGRESS BAR — data-storytelling
+   ============================================= */
+@keyframes progress-fill {
+  from { width: 0% !important; }
+  to   { width: 87% !important; }
 }
-
+.elementor-progress-bar {
+  background: linear-gradient(90deg, var(--red), var(--gold-dark), var(--gold)) !important;
+  animation: progress-fill 1.8s var(--ease-out) 0.3s both !important;
+  border-radius: 100px !important;
+  box-shadow: 0 0 14px rgba(247,189,87,0.5) !important;
+}
 .elementor-progress-wrapper {
-    border-radius: 100px;
-    overflow: hidden;
-    background: rgba(255,255,255,0.1) !important;
+  border-radius: 100px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.1) !important;
+  border: 1px solid var(--gold-border) !important;
 }
 
-/* 3. BONUS CARDS — borda dourada hover (Skill: antigravity-design-expert) */
+/* =============================================
+   BONUS CARDS — antigravity-design-expert
+   ============================================= */
 .elementor-element-1e5177b,
 .elementor-element-713b2ae,
 .elementor-element-8f2d0d4,
 .elementor-element-e52bee4,
 .elementor-element-e9328d9,
 .elementor-element-ca8cff5 {
-    opacity: 0;
-    transform: scale(0.92) translateY(30px);
-    will-change: transform, opacity;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--gold-border) !important;
+  border-radius: 22px !important;
+  background: var(--gold-glass) !important;
+  transition: transform 0.4s var(--ease-out),
+              box-shadow 0.4s var(--ease-out),
+              border-color 0.4s ease !important;
 }
-
 .elementor-element-1e5177b:hover,
 .elementor-element-713b2ae:hover,
 .elementor-element-8f2d0d4:hover,
 .elementor-element-e52bee4:hover,
 .elementor-element-e9328d9:hover,
 .elementor-element-ca8cff5:hover {
-    border-color: rgba(247, 189, 87, 0.4) !important;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(247,189,87,0.15) !important;
+  transform: translateY(-8px) scale(1.02) !important;
+  border-color: rgba(247,189,87,0.5) !important;
+  box-shadow: 0 28px 70px rgba(0,0,0,0.5),
+              0 0 35px rgba(247,189,87,0.15) !important;
 }
 
-/* 4. "GRÁTIS" — glow verde pulsante (Skill: design-spells) */
-@keyframes gratis-pulse {
-    0%, 100% { text-shadow: 0 0 12px rgba(0, 213, 82, 0.6); opacity: 1; }
-    50%       { text-shadow: 0 0 25px rgba(0, 213, 82, 0.9); opacity: 0.85; }
+/* =============================================
+   "GRÁTIS" GLOW — design-spells
+   ============================================= */
+@keyframes gratis-glow {
+  0%,100% { text-shadow: 0 0 10px rgba(0,213,82,0.5), 0 0 20px rgba(0,213,82,0.2); }
+  50%      { text-shadow: 0 0 25px rgba(0,213,82,1), 0 0 50px rgba(0,213,82,0.4); }
 }
-
 .v8-gratis {
-    color: #00D552 !important;
-    animation: gratis-pulse 2.5s ease-in-out infinite;
-    font-weight: 900 !important;
-    display: inline-block;
-    will-change: opacity;
+  color: var(--green) !important;
+  animation: gratis-glow 2s ease-in-out infinite;
+  font-weight: 900 !important;
 }
 
-/* 5. SEÇÃO DE PREÇO #oferta — glow dourado (Skill: antigravity-design-expert) */
-#oferta,
-.elementor-element-494fd4b {
-    border-top: 1px solid rgba(247, 189, 87, 0.25) !important;
-    box-shadow: 0 -30px 80px rgba(247, 189, 87, 0.08) inset !important;
+/* =============================================
+   PRICING SECTION — data-storytelling
+   ============================================= */
+#oferta, .elementor-element-494fd4b {
+  border-top: 2px solid var(--gold-border) !important;
+  box-shadow: 0 -50px 120px rgba(247,189,87,0.12) inset !important;
 }
-
 .elementor-element-800304f .elementor-heading-title {
-    /* "R$ 7,02" — pronto para JS scale in */
-    will-change: transform, opacity;
+  color: var(--gold) !important;
+  text-shadow: 0 0 50px rgba(247,189,87,0.5) !important;
 }
-
-/* Strikethrough do preço original animado */
 .elementor-element-622d68d .elementor-heading-title {
-    position: relative;
-    display: inline-block;
-}
-.elementor-element-622d68d .elementor-heading-title::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    height: 2px;
-    width: 0%;
-    background: #FF4500;
-    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
-    will-change: width;
-}
-.v8-strike-active .elementor-element-622d68d .elementor-heading-title::after {
-    width: 100%;
+  text-decoration: line-through !important;
+  text-decoration-color: var(--red) !important;
+  text-decoration-thickness: 3px !important;
+  opacity: 0.65;
 }
 
-/* 6. ICON LIST ITEMS — slide hover (Skill: design-spells) */
-.elementor-icon-list-item {
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    cursor: default;
-    border-radius: 8px;
-    padding: 4px 8px !important;
-    will-change: transform;
-}
-
-.elementor-icon-list-item:hover {
-    transform: translateX(8px);
-    background: rgba(247, 189, 87, 0.04);
-}
-
-.elementor-icon-list-item:hover .elementor-icon-list-icon i {
-    filter: brightness(1.4) drop-shadow(0 0 6px rgba(247, 189, 87, 0.6));
-    transform: scale(1.15);
-}
-
-.elementor-icon-list-icon i {
-    transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-/* 7. IMAGEM GARANTIA — float animation (Skill: canvas-design) */
+/* =============================================
+   GUARANTEE IMAGE — canvas-design
+   ============================================= */
 @keyframes guarantee-float {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    33%       { transform: translateY(-8px) rotate(1deg); }
-    66%       { transform: translateY(-4px) rotate(-0.5deg); }
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  40%      { transform: translateY(-12px) rotate(1.5deg); }
+  70%      { transform: translateY(-6px) rotate(-0.8deg); }
 }
-
 .elementor-element-6ed10bb .elementor-widget-image img {
-    animation: guarantee-float 6s ease-in-out infinite;
-    will-change: transform;
-    filter: drop-shadow(0 20px 40px rgba(247, 189, 87, 0.2));
+  animation: guarantee-float 5s ease-in-out infinite !important;
+  filter: drop-shadow(0 20px 50px rgba(247,189,87,0.3)) !important;
+  will-change: transform;
 }
 
-/* 8. FLOATING CTA #purchase-container — bounce + glow (Skill: design-spells) */
-@keyframes cta-bounce {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-5px); }
+/* =============================================
+   FLOATING CTA — design-spells
+   ============================================= */
+@keyframes cta-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
 }
-
 #purchase-container {
-    animation: cta-bounce 2.2s ease-in-out infinite;
-    box-shadow: 0 8px 30px rgba(247, 189, 87, 0.35), 0 4px 15px rgba(0,0,0,0.3) !important;
-    border-radius: 16px !important;
-    border: 1px solid rgba(247, 189, 87, 0.3) !important;
-    will-change: transform;
+  animation: cta-float 2.2s ease-in-out infinite;
+  box-shadow: 0 10px 40px rgba(247,189,87,0.45),
+              0 4px 15px rgba(0,0,0,0.4) !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(247,189,87,0.4) !important;
+  will-change: transform;
 }
 
-/* 9. SEÇÕES SEM REVEAL — setup inicial (JS vai animar) */
-.elementor-element-494fd4b,
-.elementor-element-82969c9,
-.elementor-element-8d816a6,
-.elementor-element-ce211ee,
-.elementor-element-e4dd371 {
-    opacity: 0;
-    transform: translateY(30px);
-    will-change: transform, opacity;
+/* =============================================
+   COUNTDOWN TIMER — ui-ux-pro-max
+   ============================================= */
+@keyframes timer-urgency {
+  0%,100% { box-shadow: 0 -8px 30px rgba(255,69,0,0.4); }
+  50%      { box-shadow: 0 -8px 50px rgba(255,69,0,0.8), 0 0 20px rgba(255,69,0,0.3); }
+}
+#countdown-timer {
+  animation: timer-urgency 2.5s ease-in-out infinite;
+  border-bottom: 2px solid rgba(255,255,255,0.2);
 }
 
-/* 10. CONTADORES — setup para JS */
-.v8-counter {
-    display: inline-block;
-    font-variant-numeric: tabular-nums;
+/* =============================================
+   HERO GRADIENT SPAN — magic-animator
+   ============================================= */
+@keyframes gradient-pan {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+.elementor-element-d862252 span[style*="color"] {
+  background: linear-gradient(90deg, var(--gold) 0%, #FFDD88 40%, var(--gold-dark) 70%, var(--gold) 100%) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  animation: gradient-pan 4s linear infinite;
 }
 
-/* Responsivo — manter performance no mobile (Skill: fixing-motion-performance) */
+/* =============================================
+   WHEAT ICON — claude-d3js-skill
+   ============================================= */
+@keyframes wheat-float {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(5deg); }
+}
+.v8-wheat-float { animation: wheat-float 10s ease-in-out infinite; }
+
+/* =============================================
+   PLUS ICON PULSE — animejs-animation
+   ============================================= */
+@keyframes plus-pulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.25); opacity: 0.75; }
+}
+.fa-plus { display: inline-block; animation: plus-pulse 2s ease-in-out infinite; }
+
+/* =============================================
+   REVEAL CLASSES — magic-animator
+   ============================================= */
+.v8-reveal { opacity: 0; will-change: transform, opacity; }
+.v8-reveal-up   { transform: translateY(40px); }
+.v8-reveal-left { transform: translateX(40px); }
+.v8-reveal-right{ transform: translateX(-40px); }
+
+/* =============================================
+   Z-DEPTH — antigravity-design-expert
+   ============================================= */
+.v8-z-depth {
+  transition: transform 0.5s var(--ease-out);
+  transform-style: preserve-3d;
+}
+.v8-z-depth:hover {
+  transform: perspective(1000px) translateZ(30px) rotateX(2deg);
+}
+
+/* =============================================
+   FOCUS — radix-ui-design-system
+   ============================================= */
+.v8-accessible-focus:focus {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
+}
+
+/* =============================================
+   HIDDEN JUNK — web-design-guidelines
+   ============================================= */
+.sf-hidden, .sf-dump, #sf-bar,
+.dialog-type-alert,
+.elementor-edit-area-active { display: none !important; }
+
+/* =============================================
+   SECTION GLOW — frontend-design
+   ============================================= */
+.v8-glow-section { position: relative; overflow: hidden; }
+.v8-glow-section::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(247,189,87,0.06) 0%, transparent 70%);
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================================
+   PAYMENT CARDS — design-spells
+   ============================================= */
+.elementor-element-075568e,
+.elementor-element-ed23bf8,
+.elementor-element-7856ea8 {
+  transition: transform 0.35s var(--ease-out) !important;
+}
+.elementor-element-075568e:hover,
+.elementor-element-ed23bf8:hover,
+.elementor-element-7856ea8:hover {
+  transform: translateY(-5px) !important;
+}
+
+/* =============================================
+   MOBILE — fixing-motion-performance
+   ============================================= */
 @media (max-width: 768px) {
-    .elementor-icon-list-item:hover { transform: none; }
-    .eael-adv-accordion .eael-accordion-list:hover { transform: none; }
-    #purchase-container { animation-duration: 3s; }
+  body { font-size: 15px; }
 
-    .elementor-element-1e5177b,
-    .elementor-element-713b2ae,
-    .elementor-element-8f2d0d4,
-    .elementor-element-e52bee4,
-    .elementor-element-e9328d9,
-    .elementor-element-ca8cff5 {
-        transform: translateY(20px); /* Reduz o efeito no mobile */
-    }
+  .e-parent,
+  .elementor-section.elementor-top-section {
+    margin: 8px 5px !important;
+    padding: 15px 12px !important;
+    border-radius: 16px !important;
+    width: calc(100% - 10px) !important;
+  }
+
+  h1, .elementor-heading-title.elementor-size-xl { font-size: 1.8rem !important; line-height: 1.1 !important; }
+  h2, .elementor-heading-title.elementor-size-large { font-size: 1.4rem !important; }
+
+  .elementor-button, .eael-creative-button {
+    width: 100% !important;
+    padding: 18px 28px !important;
+    font-size: 1rem !important;
+  }
+
+  #glow-1, #glow-2 { width: 120vw; height: 120vw; opacity: 0.3; }
+  .elementor-icon-list-item:hover { transform: none !important; }
+  .eael-adv-accordion .eael-accordion-list:hover { transform: none !important; }
+  #purchase-container { animation-duration: 3s; }
 }
 
-/* Reduzido motion V10 */
+@media (max-width: 480px) {
+  .elementor-heading-title { font-size: 1.5rem !important; }
+  .e-con-inner { padding: 0 !important; }
+}
+
+/* =============================================
+   REDUCED MOTION — web-accessibility
+   ============================================= */
 @media (prefers-reduced-motion: reduce) {
-    .eael-adv-accordion .eael-accordion-list,
-    .elementor-icon-list-item,
-    .elementor-element-6ed10bb .elementor-widget-image img,
-    #purchase-container { animation: none !important; transition: none !important; }
-    .elementor-element-1e5177b, .elementor-element-713b2ae,
-    .elementor-element-8f2d0d4, .elementor-element-e52bee4,
-    .elementor-element-e9328d9, .elementor-element-ca8cff5,
-    .elementor-element-494fd4b, .elementor-element-82969c9,
-    .elementor-element-8d816a6, .elementor-element-ce211ee,
-    .elementor-element-e4dd371 { opacity: 1 !important; transform: none !important; }
-    .v8-gratis { animation: none !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .v8-reveal, .v8-reveal-up, .v8-reveal-left, .v8-reveal-right { opacity: 1 !important; transform: none !important; }
+  .elementor-element-d862252 span[style*="color"] { animation: none !important; -webkit-text-fill-color: var(--gold) !important; }
+  .elementor-progress-bar { width: 87% !important; animation: none !important; }
 }
