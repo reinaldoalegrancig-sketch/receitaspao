@@ -218,6 +218,219 @@ document.addEventListener('DOMContentLoaded', () => {
         cards.forEach(card => observer.observe(card));
     };
 
+    // ============================================================
+    //  V10 ADVANCED — melhorias por seção
+    // ============================================================
+
+    // V10.1 — BONUS CARDS STAGGER (Skill: magic-animator)
+    const initBonusStagger = () => {
+        if (typeof anime === 'undefined') return;
+        const bonusIds = [
+            'elementor-element-1e5177b', 'elementor-element-713b2ae',
+            'elementor-element-8f2d0d4', 'elementor-element-e52bee4',
+            'elementor-element-e9328d9', 'elementor-element-ca8cff5'
+        ];
+        const cards = bonusIds.map(id => document.querySelector('.' + id)).filter(Boolean);
+        if (!cards.length) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries.some(e => e.isIntersecting)) {
+                anime({
+                    targets: cards,
+                    opacity: [0, 1],
+                    translateY: [30, 0],
+                    scale: [0.92, 1],
+                    delay: anime.stagger(120),
+                    duration: 800,
+                    easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+                });
+                observer.disconnect();
+            }
+        }, { threshold: 0.1 });
+
+        if (cards[0]) observer.observe(cards[0]);
+    };
+
+    // V10.2 — PROGRESS BAR ANIMADA (Skill: magic-animator)
+    const initProgressBar = () => {
+        const bar = document.querySelector('.elementor-element-4822645 .elementor-progress-bar');
+        if (!bar) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                // Anima para 87%
+                setTimeout(() => { bar.style.width = '87%'; }, 100);
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(bar.closest('.elementor-progress-wrapper') || bar);
+    };
+
+    // V10.3 — "GRÁTIS" GLOW (Skill: design-spells)
+    const initGratisGlow = () => {
+        document.querySelectorAll('.elementor-heading-title').forEach(el => {
+            if (el.textContent.includes('GRÁTIS') || el.textContent.includes('GRATIS')) {
+                // Wrap "GRÁTIS" em span com classe
+                el.innerHTML = el.innerHTML.replace(
+                    /GRÁTIS|GRATIS/g,
+                    '<span class="v8-gratis">$&</span>'
+                );
+            }
+        });
+    };
+
+    // V10.4 — SEÇÃO DE PREÇO: strikethrough + price scale (Skill: landing-page-generator)
+    const initPricingReveal = () => {
+        if (typeof anime === 'undefined') return;
+        const oferta = document.getElementById('oferta') || document.querySelector('.elementor-element-494fd4b');
+        const priceEl = document.querySelector('.elementor-element-800304f .elementor-heading-title');
+        const strikeSection = document.querySelector('.elementor-element-622d68d');
+
+        if (!oferta) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+
+                // Anima o preço principal
+                if (priceEl) {
+                    anime({
+                        targets: priceEl,
+                        opacity: [0, 1],
+                        scale: [0.75, 1],
+                        duration: 900,
+                        easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+                    });
+                }
+
+                // Ativa strikethrough
+                if (strikeSection) {
+                    setTimeout(() => strikeSection.closest('.elementor') && document.body.classList.add('v8-strike-active'), 400);
+                }
+
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.2 });
+
+        observer.observe(oferta);
+    };
+
+    // V10.5 — SEÇÕES SEM REVEAL (Skill: magic-animator)
+    const initMissingSectionReveals = () => {
+        if (typeof anime === 'undefined') return;
+
+        const sections = [
+            { id: 'elementor-element-494fd4b', dir: 'up' },
+            { id: 'elementor-element-82969c9', dir: 'up' },
+            { id: 'elementor-element-8d816a6', dir: 'left' },
+            { id: 'elementor-element-ce211ee', dir: 'up' },
+            { id: 'elementor-element-e4dd371', dir: 'up' },
+        ];
+
+        sections.forEach(({ id, dir }) => {
+            const el = document.querySelector('.' + id);
+            if (!el) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    anime({
+                        targets: el,
+                        opacity: [0, 1],
+                        translateY: dir === 'up' ? [30, 0] : [0, 0],
+                        translateX: dir === 'left' ? [40, 0] : [0, 0],
+                        duration: 800,
+                        easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+                    });
+                    observer.unobserve(el);
+                });
+            }, { threshold: 0.1 });
+
+            observer.observe(el);
+        });
+
+        // Payment methods — stagger nos 3 cards
+        const paymentCards = document.querySelectorAll(
+            '.elementor-element-075568e, .elementor-element-ed23bf8, .elementor-element-7856ea8'
+        );
+        if (paymentCards.length) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries.some(e => e.isIntersecting)) {
+                    anime({
+                        targets: paymentCards,
+                        opacity: [0, 1],
+                        translateY: [25, 0],
+                        delay: anime.stagger(150),
+                        duration: 700,
+                        easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+                    });
+                    observer.disconnect();
+                }
+            }, { threshold: 0.1 });
+            observer.observe(paymentCards[0]);
+        }
+    };
+
+    // V10.6 — COUNT-UP NOS NÚMEROS CHAVE (Skill: data-storytelling)
+    const initCountUp = () => {
+        const countUp = (el, target, duration, prefix, suffix) => {
+            const start = performance.now();
+            const update = (now) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                // Easing: easeOut cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.round(eased * target);
+                el.textContent = prefix + value + suffix;
+                if (progress < 1) requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+        };
+
+        // Encontrar "200+" no texto
+        document.querySelectorAll('.elementor-widget-text-editor p, .elementor-heading-title').forEach(el => {
+            const text = el.textContent;
+            if (text.includes('200+') && !el.dataset.v10counted) {
+                el.dataset.v10counted = '1';
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        // Só anima strong tags que contêm "200+"
+                        el.querySelectorAll('strong').forEach(strong => {
+                            if (strong.textContent.includes('200+')) {
+                                const span = document.createElement('span');
+                                span.className = 'v8-counter';
+                                span.textContent = '200+';
+                                strong.replaceChild(span, strong.firstChild);
+                                countUp(span, 200, 1200, '', '+');
+                            }
+                        });
+                        observer.unobserve(el);
+                    });
+                }, { threshold: 0.5 });
+                observer.observe(el);
+            }
+        });
+    };
+
+    // V10.7 — FLOATING CTA ENTRADA (Skill: design-spells)
+    const initFloatingCTA = () => {
+        if (typeof anime === 'undefined') return;
+        const cta = document.getElementById('purchase-container');
+        if (!cta) return;
+        // Entrada inicial da direita
+        anime({
+            targets: cta,
+            translateX: [120, 0],
+            opacity: [0, 1],
+            duration: 900,
+            delay: 2000,
+            easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+        });
+    };
+
     initParticles();
     initReveals();
     initInteractions();
@@ -225,5 +438,14 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeroTimeline();
     initCardReveals();
 
-    console.log('V9 Engine: 10 Skills Elevation Active.');
+    // V10
+    initBonusStagger();
+    initProgressBar();
+    initGratisGlow();
+    initPricingReveal();
+    initMissingSectionReveals();
+    initCountUp();
+    initFloatingCTA();
+
+    console.log('V10 Engine: 17 Skills Active.');
 });

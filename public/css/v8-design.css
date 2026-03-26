@@ -502,3 +502,231 @@ body::before {
     .v8-hero-name, .v8-hero-title, .v8-hero-sub,
     .v8-card-reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* ============================================================
+   DESIGN V10 — ADVANCED INTERACTIONS
+   Skills: design-spells, magic-animator, landing-page-generator,
+           antigravity-design-expert, fixing-motion-performance
+   ============================================================ */
+
+/* 1. FAQ ACCORDION — indicador dourado + hover (Skill: design-spells) */
+.eael-adv-accordion .eael-accordion-list {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 6px !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 3px solid transparent;
+    will-change: transform;
+}
+
+.eael-adv-accordion .eael-accordion-list:hover {
+    transform: translateX(4px);
+    border-left-color: var(--v8-gold);
+    background: rgba(247, 189, 87, 0.04) !important;
+}
+
+.eael-adv-accordion .eael-accordion-list.eael-accordion-active {
+    border-left-color: var(--v8-gold) !important;
+    background: rgba(247, 189, 87, 0.06) !important;
+}
+
+.eael-adv-accordion .eael-accordion-tab-title {
+    transition: color 0.25s ease;
+    padding-left: 12px !important;
+}
+
+.eael-adv-accordion .eael-accordion-list.eael-accordion-active .eael-accordion-tab-title {
+    color: var(--v8-gold) !important;
+}
+
+/* Ícone FAQ gira ao abrir */
+.eael-adv-accordion .eael-accordion-tab-title .accordion-tab-icon {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+}
+.eael-adv-accordion .eael-accordion-list.eael-accordion-active .accordion-tab-icon {
+    transform: rotate(45deg);
+}
+
+/* 2. PROGRESS BAR — gradiente e setup para JS (Skill: magic-animator) */
+.elementor-element-4822645 .elementor-progress-bar {
+    background: linear-gradient(90deg, #FF4500, #EC9D00, #F7BD57) !important;
+    width: 0% !important; /* JS anima para 87% */
+    transition: width 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 10px rgba(247, 189, 87, 0.5);
+    will-change: width;
+}
+
+.elementor-progress-wrapper {
+    border-radius: 100px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.1) !important;
+}
+
+/* 3. BONUS CARDS — borda dourada hover (Skill: antigravity-design-expert) */
+.elementor-element-1e5177b,
+.elementor-element-713b2ae,
+.elementor-element-8f2d0d4,
+.elementor-element-e52bee4,
+.elementor-element-e9328d9,
+.elementor-element-ca8cff5 {
+    opacity: 0;
+    transform: scale(0.92) translateY(30px);
+    will-change: transform, opacity;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.elementor-element-1e5177b:hover,
+.elementor-element-713b2ae:hover,
+.elementor-element-8f2d0d4:hover,
+.elementor-element-e52bee4:hover,
+.elementor-element-e9328d9:hover,
+.elementor-element-ca8cff5:hover {
+    border-color: rgba(247, 189, 87, 0.4) !important;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(247,189,87,0.15) !important;
+}
+
+/* 4. "GRÁTIS" — glow verde pulsante (Skill: design-spells) */
+@keyframes gratis-pulse {
+    0%, 100% { text-shadow: 0 0 12px rgba(0, 213, 82, 0.6); opacity: 1; }
+    50%       { text-shadow: 0 0 25px rgba(0, 213, 82, 0.9); opacity: 0.85; }
+}
+
+.v8-gratis {
+    color: #00D552 !important;
+    animation: gratis-pulse 2.5s ease-in-out infinite;
+    font-weight: 900 !important;
+    display: inline-block;
+    will-change: opacity;
+}
+
+/* 5. SEÇÃO DE PREÇO #oferta — glow dourado (Skill: antigravity-design-expert) */
+#oferta,
+.elementor-element-494fd4b {
+    border-top: 1px solid rgba(247, 189, 87, 0.25) !important;
+    box-shadow: 0 -30px 80px rgba(247, 189, 87, 0.08) inset !important;
+}
+
+.elementor-element-800304f .elementor-heading-title {
+    /* "R$ 7,02" — pronto para JS scale in */
+    will-change: transform, opacity;
+}
+
+/* Strikethrough do preço original animado */
+.elementor-element-622d68d .elementor-heading-title {
+    position: relative;
+    display: inline-block;
+}
+.elementor-element-622d68d .elementor-heading-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 2px;
+    width: 0%;
+    background: #FF4500;
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    will-change: width;
+}
+.v8-strike-active .elementor-element-622d68d .elementor-heading-title::after {
+    width: 100%;
+}
+
+/* 6. ICON LIST ITEMS — slide hover (Skill: design-spells) */
+.elementor-icon-list-item {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+    border-radius: 8px;
+    padding: 4px 8px !important;
+    will-change: transform;
+}
+
+.elementor-icon-list-item:hover {
+    transform: translateX(8px);
+    background: rgba(247, 189, 87, 0.04);
+}
+
+.elementor-icon-list-item:hover .elementor-icon-list-icon i {
+    filter: brightness(1.4) drop-shadow(0 0 6px rgba(247, 189, 87, 0.6));
+    transform: scale(1.15);
+}
+
+.elementor-icon-list-icon i {
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* 7. IMAGEM GARANTIA — float animation (Skill: canvas-design) */
+@keyframes guarantee-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33%       { transform: translateY(-8px) rotate(1deg); }
+    66%       { transform: translateY(-4px) rotate(-0.5deg); }
+}
+
+.elementor-element-6ed10bb .elementor-widget-image img {
+    animation: guarantee-float 6s ease-in-out infinite;
+    will-change: transform;
+    filter: drop-shadow(0 20px 40px rgba(247, 189, 87, 0.2));
+}
+
+/* 8. FLOATING CTA #purchase-container — bounce + glow (Skill: design-spells) */
+@keyframes cta-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-5px); }
+}
+
+#purchase-container {
+    animation: cta-bounce 2.2s ease-in-out infinite;
+    box-shadow: 0 8px 30px rgba(247, 189, 87, 0.35), 0 4px 15px rgba(0,0,0,0.3) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(247, 189, 87, 0.3) !important;
+    will-change: transform;
+}
+
+/* 9. SEÇÕES SEM REVEAL — setup inicial (JS vai animar) */
+.elementor-element-494fd4b,
+.elementor-element-82969c9,
+.elementor-element-8d816a6,
+.elementor-element-ce211ee,
+.elementor-element-e4dd371 {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: transform, opacity;
+}
+
+/* 10. CONTADORES — setup para JS */
+.v8-counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Responsivo — manter performance no mobile (Skill: fixing-motion-performance) */
+@media (max-width: 768px) {
+    .elementor-icon-list-item:hover { transform: none; }
+    .eael-adv-accordion .eael-accordion-list:hover { transform: none; }
+    #purchase-container { animation-duration: 3s; }
+
+    .elementor-element-1e5177b,
+    .elementor-element-713b2ae,
+    .elementor-element-8f2d0d4,
+    .elementor-element-e52bee4,
+    .elementor-element-e9328d9,
+    .elementor-element-ca8cff5 {
+        transform: translateY(20px); /* Reduz o efeito no mobile */
+    }
+}
+
+/* Reduzido motion V10 */
+@media (prefers-reduced-motion: reduce) {
+    .eael-adv-accordion .eael-accordion-list,
+    .elementor-icon-list-item,
+    .elementor-element-6ed10bb .elementor-widget-image img,
+    #purchase-container { animation: none !important; transition: none !important; }
+    .elementor-element-1e5177b, .elementor-element-713b2ae,
+    .elementor-element-8f2d0d4, .elementor-element-e52bee4,
+    .elementor-element-e9328d9, .elementor-element-ca8cff5,
+    .elementor-element-494fd4b, .elementor-element-82969c9,
+    .elementor-element-8d816a6, .elementor-element-ce211ee,
+    .elementor-element-e4dd371 { opacity: 1 !important; transform: none !important; }
+    .v8-gratis { animation: none !important; }
+}
