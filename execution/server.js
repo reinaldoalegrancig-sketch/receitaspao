@@ -39,7 +39,7 @@ http.createServer((req, res) => {
                 res.end('Error: ' + error.code);
             }
         } else {
-            res.writeHead(200, { 'Content-Type': contentType });
+            res.writeHead(200, { 'Content-Type': contentType + '; charset=utf-8' });
             res.end(content, 'utf-8');
         }
     });

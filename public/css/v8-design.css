@@ -1,0 +1,349 @@
+/* 
+   DESIGN V8 LAYER - ENHANCEMENT 
+   This layer adds premium aesthetics on top of Elementor Core.
+*/
+
+:root {
+    --v8-gold: #F7BD57;
+    --v8-gold-glow: rgba(247, 189, 87, 0.3);
+    --v8-bg-dark: #0A0A0A;
+    --v8-glass: rgba(255, 255, 255, 0.02);
+    --v8-glass-border: rgba(255, 255, 255, 0.07);
+}
+
+body {
+    background: var(--v8-bg-dark) !important;
+    color: #FFF !important;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Enhancement - Applied only to parent containers to avoid breaking nested widgets */
+.e-parent, .elementor-section.elementor-top-section {
+    background: var(--v8-glass) !important;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--v8-glass-border) !important;
+    border-radius: 40px;
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+    padding: 60px 20px !important;
+    transition: all 0.5s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+}
+
+.e-parent:hover, .elementor-section.elementor-top-section:hover {
+    border-color: rgba(247, 189, 87, 0.2) !important;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+}
+
+/* Typography Harmony */
+h1, h2, h3, .elementor-heading-title, .elementor-icon-list-text, p {
+    text-shadow: 0 1px 5px rgba(0,0,0,0.2);
+}
+
+/* Force White only for V8 containers / Glassmorphism */
+body, .v8-glass, .e-parent {
+    color: #FFFFFF !important;
+}
+
+.e-parent .elementor-heading-title, .e-parent p, .e-parent .elementor-icon-list-text {
+    color: #FFFFFF !important;
+}
+
+/* Fix for Light Sections (Recipes) - Direct ID Targeting for absolute stability */
+.elementor-element-9d70338, .elementor-element-0520d6f, .elementor-element-c6f6631,
+[style*="background-color:#F"], [style*="background-color:#f"] {
+    color: #1A120C !important;
+}
+.elementor-element-9d70338 h1, .elementor-element-9d70338 h2, .elementor-element-9d70338 h3, .elementor-element-9d70338 .elementor-heading-title, .elementor-element-9d70338 .elementor-icon-list-text,
+.elementor-element-0520d6f .elementor-heading-title, .elementor-element-0520d6f .elementor-icon-list-text,
+.elementor-element-c6f6631 .elementor-heading-title, .elementor-element-c6f6631 .elementor-icon-list-text {
+    color: #1A120C !important;
+    text-shadow: none !important;
+}
+
+/* Ensure Elementor Fonts take precedence when set */
+.elementor-element[data-settings*="font-family"] .elementor-heading-title,
+.elementor-heading-title[style*="font-family"] {
+    font-family: inherit !important;
+}
+
+/* Fix for "Broken Letters" - Ensure fonts load smoothly */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Atmosphere Glows */
+.v8-bg-glow {
+    position: fixed;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, var(--v8-gold-glow) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+#glow-1 { top: -20%; left: -20%; }
+#glow-2 { bottom: -20%; right: -20%; }
+
+/* Suprimir lixo residual do snapshot */
+.sf-hidden, .sf-dump, #sf-bar, .dialog-type-alert, .elementor-edit-area-active {
+    display: none !important;
+}
+
+/* Premium Button Overwrite */
+.elementor-button, .eael-creative-button {
+    background: var(--v8-gold) !important;
+    color: #000 !important;
+    border-radius: 100px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1px;
+    text-transform: uppercase !important;
+    padding: 20px 45px !important;
+    box-shadow: 0 15px 30px rgba(247, 189, 87, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.elementor-button:hover, .eael-creative-button:hover {
+    transform: scale(1.05) translateY(-3px);
+    box-shadow: 0 20px 40px rgba(247, 189, 87, 0.5) !important;
+}
+
+/* Image alignment fix "Pente Fino" */
+.elementor-widget-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Icon List Style Improvement */
+.elementor-icon-list-icon i {
+    color: var(--v8-gold) !important;
+    filter: drop-shadow(0 0 5px var(--v8-gold-glow));
+}
+
+.elementor-icon-list-text {
+    color: inherit !important; /* Allow the section to determine text color for better contrast */
+    transition: color 0.3s;
+}
+
+/* 
+   --- THE 13 CONVERSION SKILLS: ANIMATION FOUNDATION ---
+*/
+
+/* 1. design-spells: Hover physics */
+.v8-button-spell:hover {
+    transform: translateY(-5px) scale(1.02);
+    filter: brightness(1.1);
+}
+
+/* 2. magic-animator: Reveal foundation */
+.v8-reveal {
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+/* 3. frontend-design: Section Glows */
+.v8-glow-section {
+    position: relative;
+    overflow: hidden;
+}
+.v8-glow-section::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(247, 189, 87, 0.05) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* 4. antigravity-design-expert: Z-depth */
+.v8-z-depth {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transform-style: preserve-3d;
+}
+.v8-z-depth:hover {
+    transform: perspective(1000px) translateZ(30px) rotateX(2deg);
+}
+
+/* 5. radix-ui-design-system: Focus & Accessibility */
+.v8-accessible-focus:focus {
+    outline: 3px solid var(--v8-gold);
+    outline-offset: 4px;
+}
+
+/* 6. web-accessibility: Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    .v8-reveal, .v8-z-depth {
+        animation: none !important;
+        transition: opacity 0.1s !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+}
+
+/* 7. ui-ux-pro-max: High contrast spacing */
+.v8-spacing-pro {
+    margin-top: 100px !important;
+    margin-bottom: 100px !important;
+}
+
+/* 8. web-design-guidelines: Performance layers */
+.v8-perf-layer {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* 9. animejs-animation: Reveal styles */
+.v8-reveal-up { transform: translateY(40px); }
+.v8-reveal-left { transform: translateX(40px); }
+.v8-reveal-right { transform: translateX(-40px); }
+
+/* 10. claude-d3js-skill: Wheat icon float */
+@keyframes wheat-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+}
+.v8-wheat-float {
+    animation: wheat-float 10s ease-in-out infinite;
+}
+
+/* 11. data-storytelling: Narrative focus */
+.v8-focus-item {
+    transition: opacity 0.4s ease;
+}
+.v8-focus-item:not(:hover) {
+    opacity: 0.8;
+}
+
+/* 12. canvas-design: Particle container sync */
+#v8-particles {
+    mix-blend-mode: screen;
+}
+
+/* 13. fixing-motion-performance: Will-change */
+.v8-fast-animate {
+    will-change: transform, opacity;
+}
+
+/* 14. Responsive - [Skill: frontend-design] */
+@media (max-width: 768px) {
+    :root {
+        --v8-spacing-mobile: 15px;
+    }
+
+    body {
+        font-size: 15px;
+    }
+
+    .e-parent, .elementor-section.elementor-top-section {
+        margin-top: 30px !important;
+        margin-bottom: 30px !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        padding-left: var(--v8-spacing-mobile) !important;
+        padding-right: var(--v8-spacing-mobile) !important;
+        padding-top: 40px !important;
+        padding-bottom: 40px !important;
+        border-radius: 24px;
+        width: calc(100% - 20px) !important;
+    }
+
+    /* Headline scaling */
+    h1, .elementor-heading-title.elementor-size-xl {
+        font-size: 2.2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    h2, .elementor-heading-title.elementor-size-large {
+        font-size: 1.8rem !important;
+    }
+
+    /* Button Ergonomics - [Skill: ui-ux-pro-max] */
+    .elementor-button, .eael-creative-button {
+        width: 100% !important;
+        padding: 18px 30px !important;
+        font-size: 1rem !important;
+        text-align: center;
+    }
+
+    /* Recipe Column Fixes */
+    .elementor-element-9d70338, .elementor-element-0520d6f, .elementor-element-c6f6631 {
+        margin-bottom: 20px !important;
+        padding: 20px !important;
+    }
+
+    /* Video/Image stability */
+    .elementor-widget-video, .elementor-widget-image {
+        margin-bottom: 15px !important;
+    }
+
+    /* Glow position adjustment */
+    #glow-1, #glow-2 {
+        width: 120vw;
+        height: 120vw;
+        opacity: 0.3;
+    }
+}
+
+/* Specific fix for very small screens (Skill: Web-Accessibility) */
+@media (max-width: 480px) {
+    .elementor-heading-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .e-con-inner {
+        padding: 0 !important;
+    }
+    
+    .v8-reveal-left, .v8-reveal-right {
+        transform: translateY(20px) !important; /* Switch to simple slide-up for narrow screens */
+    }
+}
+
+/* --- FINAL POLISH: CONTRAST & MOBILE STABILITY --- */
+/* Target sections that have light beige/gray backgrounds in Elementor */
+.elementor-element-71a4139, .elementor-element-cd2f9e9, .elementor-element-9830bcc, 
+.elementor-element-04564b1, .elementor-element-5aabcd7 {
+    color: #1A120C !important;
+}
+
+.elementor-element-71a4139 .elementor-heading-title, 
+.elementor-element-71a4139 p,
+.elementor-element-cd2f9e9 .elementor-heading-title, 
+.elementor-element-cd2f9e9 p,
+.elementor-element-9830bcc .elementor-heading-title, 
+.elementor-element-9830bcc p,
+.elementor-element-04564b1 .elementor-heading-title,
+.elementor-element-04564b1 p,
+.elementor-element-5aabcd7 .elementor-heading-title,
+.elementor-element-5aabcd7 p {
+    color: #1A120C !important;
+    text-shadow: none !important;
+}
+
+/* Fix for the Sticky Offer Banner in the footer */
+#countdown-timer {
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+}
+
+/* Pulse animation for the + icon to draw attention */
+@keyframes plus-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.fa-plus {
+    display: inline-block;
+    animation: plus-pulse 2s infinite ease-in-out;
+}

@@ -1,0 +1,19 @@
+commit d6135fcd946f28a7d1ef3e7168cf518ce27e351d
+Author: Reinaldo <reinaldo@example.com>
+Date:   Mon Mar 23 23:50:02 2026 -0300
+
+    Atualiza link de checkout principal na home
+
+diff --git a/public/index.html b/public/index.html
+index c24b324..3640456 100644
+--- a/public/index.html
++++ b/public/index.html
+@@ -920,7 +920,7 @@ VALOR HOJE: <span style="color:#00D552;font-size:40px;line-height:45px"><strong>
+ <div class="elementor-element elementor-element-dc19c57 elementor-widget elementor-widget-eael-creative-button" data-element_type="widget" data-id="dc19c57" data-widget_type="eael-creative-button.default">
+ <div class="elementor-widget-container">
+ <div class="eael-creative-button-wrapper">
+-<a class="eael-creative-button eael-creative-button--moema" data-text="" href="https://checkout.doppus.app/12573015?utm_source=jLj69bf445932a59ae25dfde445&amp;utm_campaign=&amp;utm_medium=&amp;utm_content=%3A%3AIwZXh0bgNhZW0CMTAAYnJpZBExbk1EcUE0QUxJQ3N5NXFhY3NydGMGYXBwX2lkDzU0MTYzOTQ5Mzg4OTAyNQABHvQ2KKBJNEPz7SWF4LZFe0JCZuALeL3Svn4eaUTD6c6_bcEH5bgouyReF2ny_aem_YZimzRZxeZNW7FZjQfmMNQ%3A%3A&amp;utm_term=" id="56ae4cd5-cb00-e6b4-ed45-2032fa1e1345">
++<a class="eael-creative-button eael-creative-button--moema" data-text="" href="https://checkout.korvex.com.br/checkout/cmn3yjctz0evb1yrxkocr9yvr?offer=I3ZETP9" id="56ae4cd5-cb00-e6b4-ed45-2032fa1e1345">
+ <div class="creative-button-inner">
+ <span class="eael-creative-button-icon-left"></span>
+ <span class="cretive-button-text">COMPRAR AGORA</span>

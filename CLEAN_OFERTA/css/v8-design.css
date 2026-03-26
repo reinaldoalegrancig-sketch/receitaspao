@@ -1,0 +1,95 @@
+/*
+    DESIGN V8 SYSTEM - CORE TOKENS
+    Project: Sua Receita Saudável
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+:root {
+    --v8-gold: #F7BD57;
+    --v8-gold-glow: rgba(247, 189, 87, 0.4);
+    --v8-bg-dark: #0A0A0A;
+    --v8-glass: rgba(255, 255, 255, 0.03);
+    --v8-glass-border: rgba(255, 255, 255, 0.08);
+}
+
+body {
+    background: var(--v8-bg-dark) !important;
+    color: #FFF !important;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism CORE */
+.elementor-section, .e-con, .elementor-container {
+    background: var(--v8-glass) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid var(--v8-glass-border) !important;
+    border-radius: 20px !important;
+    margin-bottom: 30px !important;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
+    z-index: 1 !important;
+}
+
+.elementor-section:hover, .e-con:hover {
+    transform: translateY(-10px) scale(1.01);
+    border-color: var(--v8-gold);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+/* Premium Typography */
+h1, h2, h3, .elementor-heading-title {
+    font-family: 'Outfit', sans-serif !important;
+    letter-spacing: -0.02em;
+}
+
+/* Background Atmosphere */
+.v8-bg-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, var(--v8-gold-glow) 0%, rgba(247, 189, 87, 0) 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1 !important;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+#glow-1 { top: -10%; left: -10%; }
+#glow-2 { bottom: -10%; right: -10%; }
+
+/* Suprimir lixo residual */
+.sf-hidden, .sf-dump, #sf-bar, .dialog-type-alert {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Elementor Basic Fixes (to keep layout without 400KB of CSS) */
+.e-con-inner { display: flex; flex-direction: column; width: 100%; max-width: 1140px; margin: 0 auto; padding: 20px; }
+.e-flex { display: flex; }
+.e-con-boxed { width: 100%; }
+.elementor-widget-container { padding: 10px; }
+.elementor-widget-image img { height: auto; max-width: 100%; border-radius: 15px; }
+
+/* Botão V8 */
+.elementor-button, .eael-creative-button {
+    background: var(--v8-gold) !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+    border-radius: 50px !important;
+    padding: 18px 40px !important;
+    text-transform: uppercase;
+    box-shadow: 0 10px 20px rgba(247, 189, 87, 0.2);
+}
+
+/* Icon List Fix */
+.elementor-icon-list-items { list-style: none; padding: 0; }
+.elementor-icon-list-item { display: flex; align-items: center; margin-bottom: 10px; }
+.elementor-icon-list-icon { color: var(--v8-gold); margin-right: 15px; }
