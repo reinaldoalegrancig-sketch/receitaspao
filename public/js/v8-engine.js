@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.height = window.innerHeight;
             // High performance density - [Skill: fixing-motion-performance]
             const isMobile = window.innerWidth < 768;
-            const particleCount = isMobile ? 25 : 50; // Reduction for mobile performance
+            const particleCount = isMobile ? 10 : 30; // Further reduction for better performance
             
             particles = Array.from({ length: particleCount }, () => ({
                 x: Math.random() * canvas.width,
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             translateY: el.classList.contains('v8-reveal-up') ? [40, 0] : [0, 0],
                             translateX: el.classList.contains('v8-reveal-left') ? [40, 0] : (el.classList.contains('v8-reveal-right') ? [-40, 0] : [0, 0]),
                             scale: el.classList.contains('v8-z-depth') ? [0.95, 1] : [1, 1],
-                            duration: 1200,
+                            duration: 800,
                             easing: 'cubicBezier(0.16, 1, 0.3, 1)'
                         });
                     }
