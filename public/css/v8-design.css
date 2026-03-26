@@ -349,3 +349,156 @@ body, .v8-glass, .e-parent {
     display: inline-block;
     animation: plus-pulse 2s infinite ease-in-out;
 }
+
+/* ============================================================
+   DESIGN V9 — ELEVATION LAYER
+   Skills: design-spells, magic-animator, antigravity-design-expert,
+           fixing-motion-performance, ui-ux-pro-max, frontend-design
+   ============================================================ */
+
+/* 1. NOISE TEXTURE OVERLAY — premium feel (Skill: frontend-design) */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+}
+
+/* 2. SCROLL PROGRESS BAR — (Skill: ui-ux-pro-max) */
+#v8-scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, #EC9D00, #F7BD57, #EEAF49);
+    z-index: 9999;
+    pointer-events: none;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(247, 189, 87, 0.8);
+    will-change: width;
+}
+
+/* 3. SHIMMER NOS BOTÕES CTA — (Skill: design-spells) */
+@keyframes btn-shimmer {
+    0%   { transform: translateX(-100%) skewX(-15deg); }
+    100% { transform: translateX(250%) skewX(-15deg); }
+}
+
+.elementor-button, .eael-creative-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.elementor-button::after, .eael-creative-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    animation: btn-shimmer 2.8s ease-in-out infinite;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* 4. GRADIENT TEXT no hero span dourado — (Skill: magic-animator) */
+.elementor-element-d862252 .elementor-heading-title span,
+.elementor-element-d862252 span[style*="color:#f7bd57"],
+.elementor-element-d862252 span[style*="color:#F7BD57"] {
+    background: linear-gradient(90deg, #F7BD57 0%, #EC9D00 40%, #EEAF49 70%, #F7BD57 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-pan 4s linear infinite;
+    display: inline-block;
+}
+
+@keyframes gradient-pan {
+    0%   { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+/* 5. HOVER NAS IMAGENS — (Skill: antigravity-design-expert) */
+.elementor-widget-image img {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 16px;
+    will-change: transform;
+}
+
+.elementor-widget-image:hover img {
+    transform: scale(1.04);
+    box-shadow: 0 20px 60px rgba(247, 189, 87, 0.25), 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* 6. SEPARADOR DOURADO ENTRE SEÇÕES — (Skill: frontend-design) */
+.e-parent + .e-parent::before,
+.elementor-section.elementor-top-section + .elementor-section.elementor-top-section::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(247,189,87,0.3), transparent);
+    margin: 0 10%;
+    opacity: 0;
+    animation: divider-fade 0.8s ease forwards;
+}
+
+@keyframes divider-fade {
+    to { opacity: 1; }
+}
+
+/* 7. PULSE NO COUNTDOWN TIMER — (Skill: design-spells) */
+@keyframes timer-pulse {
+    0%, 100% { box-shadow: 0 -10px 30px rgba(0,0,0,0.3), 0 0 0 0 rgba(247,189,87,0); }
+    50%       { box-shadow: 0 -10px 30px rgba(0,0,0,0.3), 0 0 20px 4px rgba(247,189,87,0.25); }
+}
+
+#countdown-timer {
+    animation: timer-pulse 3s ease-in-out infinite;
+}
+
+/* 8. GLASSMORPHISM ELEVADO NOS CARDS DE BÔNUS — (Skill: antigravity-design-expert) */
+.elementor-element[data-id] .elementor-widget-image-box,
+.elementor-widget-icon-box,
+.elementor-widget-testimonial {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: 20px;
+    will-change: transform;
+}
+
+.elementor-element[data-id] .elementor-widget-image-box:hover,
+.elementor-widget-icon-box:hover,
+.elementor-widget-testimonial:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.4), 0 0 30px rgba(247,189,87,0.12);
+}
+
+/* 9. CARD REVEAL COM SCALE — (Skill: magic-animator) */
+.v8-card-reveal {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    will-change: transform, opacity;
+}
+
+/* 10. HERO ENTRADA — elementos prontos para timeline Anime.js */
+.v8-hero-name    { opacity: 0; transform: translateY(-20px); will-change: transform, opacity; }
+.v8-hero-title   { opacity: 0; transform: translateY(30px);  will-change: transform, opacity; }
+.v8-hero-sub     { opacity: 0; transform: translateY(20px);  will-change: transform, opacity; }
+
+/* Reduzido motion — mantém acessibilidade (Skill: web-accessibility) */
+@media (prefers-reduced-motion: reduce) {
+    #v8-scroll-progress { transition: none; }
+    .elementor-button::after, .eael-creative-button::after { animation: none; }
+    .elementor-element-d862252 .elementor-heading-title span { animation: none; -webkit-text-fill-color: #F7BD57; }
+    #countdown-timer { animation: none; }
+    .v8-hero-name, .v8-hero-title, .v8-hero-sub,
+    .v8-card-reveal { opacity: 1 !important; transform: none !important; }
+}

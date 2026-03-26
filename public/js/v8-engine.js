@@ -137,9 +137,93 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // ============================================================
+    //  V9 ELEVATION — novas funções
+    // ============================================================
+
+    // 4. SCROLL PROGRESS BAR — (Skill: ui-ux-pro-max)
+    const initScrollProgress = () => {
+        const bar = document.createElement('div');
+        bar.id = 'v8-scroll-progress';
+        document.body.appendChild(bar);
+
+        const update = () => {
+            const scrolled = window.scrollY;
+            const total = document.body.scrollHeight - window.innerHeight;
+            bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
+        };
+
+        window.addEventListener('scroll', update, { passive: true });
+        update();
+    };
+
+    // 5. HERO TIMELINE — (Skills: magic-animator, animejs-animation)
+    const initHeroTimeline = () => {
+        if (typeof anime === 'undefined') return;
+
+        // Marcar os elementos do hero com classes
+        const heroSection = document.querySelector('.elementor-element-888cf2e, [id="elementor-section-bg-overlay"]');
+        if (!heroSection) return;
+
+        const name  = heroSection.querySelector('.elementor-element-b27d778');
+        const title = heroSection.querySelector('.elementor-element-d862252');
+        const sub   = heroSection.querySelector('.elementor-element-68b51f4');
+        const cta   = heroSection.querySelector('.elementor-button');
+
+        [name, title, sub].forEach((el, i) => {
+            if (!el) return;
+            const cls = ['v8-hero-name', 'v8-hero-title', 'v8-hero-sub'][i];
+            el.classList.add(cls);
+        });
+
+        const tl = anime.timeline({ easing: 'cubicBezier(0.16, 1, 0.3, 1)' });
+
+        if (name) tl.add({ targets: name, opacity: [0, 1], translateY: [-20, 0], duration: 700 }, 100);
+        if (title) tl.add({ targets: title, opacity: [0, 1], translateY: [30, 0], duration: 800 }, 350);
+        if (sub)   tl.add({ targets: sub,   opacity: [0, 1], translateY: [20, 0], duration: 700 }, 600);
+        if (cta)   tl.add({
+            targets: cta,
+            opacity: [0, 1],
+            translateY: [15, 0],
+            scale: [0.95, 1],
+            duration: 600
+        }, 850);
+    };
+
+    // 6. CARD REVEALS com scale — (Skill: magic-animator)
+    const initCardReveals = () => {
+        if (typeof anime === 'undefined') return;
+
+        const cards = document.querySelectorAll(
+            '.elementor-widget-image-box, .elementor-widget-icon-box, .elementor-widget-testimonial'
+        );
+
+        cards.forEach(card => card.classList.add('v8-card-reveal'));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                anime({
+                    targets: entry.target,
+                    opacity: [0, 1],
+                    translateY: [20, 0],
+                    scale: [0.95, 1],
+                    duration: 700,
+                    easing: 'cubicBezier(0.16, 1, 0.3, 1)'
+                });
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.12 });
+
+        cards.forEach(card => observer.observe(card));
+    };
+
     initParticles();
     initReveals();
     initInteractions();
+    initScrollProgress();
+    initHeroTimeline();
+    initCardReveals();
 
-    console.log('V8 Engine: 13 Skills Active.');
+    console.log('V9 Engine: 10 Skills Elevation Active.');
 });
