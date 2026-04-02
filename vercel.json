@@ -1,9 +1,11 @@
 {
   "version": 2,
   "builds": [
-    { "src": "index.html", "use": "@vercel/static" }
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "fernanda.png", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/fernanda.png", "dest": "/fernanda.png" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
