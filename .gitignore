@@ -1,9 +1,1 @@
-node_modules/
-.DS_Store
-*.bak
-tmp_dump.txt
-receitaspao/
-.git/
-
 .vercel
-.env*.local
