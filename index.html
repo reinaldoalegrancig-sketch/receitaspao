@@ -1796,7 +1796,6 @@
       <div class="modal-feat"><span class="chk">✓</span> Acesso vitalício</div>
     </div>
     <a href="https://go.pepperpay.com.br/nklkm" target="_blank" class="btn btn-green btn-full">Quero o Plano Premium</a>
-    <button class="modal-decline" id="modalDecline">Não, obrigado. Quero apenas o básico.</button>
     <p style="margin-top:14px;font-size:0.72rem;color:var(--c-t3)">Compra 100% segura</p>
   </div>
 </div>
@@ -1973,8 +1972,6 @@
   const basicUrl = 'https://go.pepperpay.com.br/onnv9';
   const openModal = () => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
   const closeModal = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
-  const declineModal = () => { closeModal(); window.open(basicUrl, '_blank'); };
-
   /* Intercepta clique no plano básico → abre modal de upsell */
   const btnBasic = document.getElementById('btn-basic');
   if (btnBasic) {
@@ -1985,7 +1982,6 @@
   }
 
   document.getElementById('modalX').addEventListener('click', closeModal);
-  document.getElementById('modalDecline').addEventListener('click', declineModal);
   modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
