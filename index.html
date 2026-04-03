@@ -1501,7 +1501,7 @@
           <div class="pf"><span class="pf-check">✓</span> Acesso por 2 meses</div>
         </div>
         <div class="price-upgrade-note">Há uma opção mais completa disponível abaixo.</div>
-        <a href="https://go.pepperpay.com.br/onnv9" class="btn btn-outline btn-full">Acesso Básico →</a>
+        <a href="https://go.pepperpay.com.br/onnv9" id="btn-basic" class="btn btn-outline btn-full">Acesso Básico →</a>
         <div class="price-note">Compra 100% segura</div>
       </div>
 
@@ -1795,7 +1795,7 @@
       <div class="modal-feat"><span class="chk">✓</span> Grupo de Leitores</div>
       <div class="modal-feat"><span class="chk">✓</span> Acesso vitalício</div>
     </div>
-    <a href="https://go.pepperpay.com.br/nklkm" class="btn btn-green btn-full">Quero o Plano Premium</a>
+    <a href="https://go.pepperpay.com.br/nklkm" target="_blank" class="btn btn-green btn-full">Quero o Plano Premium</a>
     <button class="modal-decline" id="modalDecline">Não, obrigado. Quero apenas o básico.</button>
     <p style="margin-top:14px;font-size:0.72rem;color:var(--c-t3)">Compra 100% segura</p>
   </div>
@@ -1970,9 +1970,22 @@
 
   /* ── Modal ── */
   const modal = document.getElementById('modal');
+  const basicUrl = 'https://go.pepperpay.com.br/onnv9';
+  const openModal = () => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
   const closeModal = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+  const declineModal = () => { closeModal(); window.open(basicUrl, '_blank'); };
+
+  /* Intercepta clique no plano básico → abre modal de upsell */
+  const btnBasic = document.getElementById('btn-basic');
+  if (btnBasic) {
+    btnBasic.addEventListener('click', e => {
+      e.preventDefault();
+      openModal();
+    });
+  }
+
   document.getElementById('modalX').addEventListener('click', closeModal);
-  document.getElementById('modalDecline').addEventListener('click', closeModal);
+  document.getElementById('modalDecline').addEventListener('click', declineModal);
   modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
 
