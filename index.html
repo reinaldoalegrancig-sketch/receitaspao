@@ -5,55 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no"/>
   <title>Biblioteca da Meia-Noite | +20.000 Livros</title>
   <meta name="description" content="Acesso imediato a mais de 20.000 livros, best sellers e lançamentos. PDF, EPUB e Audiobooks."/>
+  <!-- Preconnects críticos -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- Google Fonts não-bloqueante: carrega como print e muda para all após load -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/></noscript>
+  <!-- Preload da imagem LCP (hero background) -->
+  <link rel="preload" as="image" href="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/11c0821fc.jpg" fetchpriority="high"/>
   <link rel="icon" type="image/png" href="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/wrvtKp7800267.png"/>
 
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '2033755147485730');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=2033755147485730&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
-
-  <!-- Utmify Pixel -->
-  <script>
-  window.pixelId = "69d00fd840faa89a70de9c23";
-  var a = document.createElement("script");
-  a.setAttribute("async", "");
-  a.setAttribute("defer", "");
-  a.setAttribute("src", "https://cdn.utmify.com.br/scripts/pixel/pixel.js");
-  document.head.appendChild(a);
-  </script>
-  <!-- End Utmify Pixel -->
-
-  <!-- Utmify UTMs -->
-  <script
-    src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-    data-utmify-prevent-xcod-sck
-    data-utmify-prevent-subids
-    async
-    defer
-  ></script>
-  <!-- End Utmify UTMs -->
+  <!-- Utmify: dns-prefetch antecipado, scripts movidos para o final do body -->
+  <link rel="dns-prefetch" href="https://cdn.utmify.com.br"/>
+  <!-- CDN de imagens: preconnect para reduzir latência -->
+  <link rel="preconnect" href="https://media.atomicatpages.net" crossorigin/>
+  <link rel="dns-prefetch" href="https://connect.facebook.net"/>
 
   <style>
+  /* Garante texto visível antes das webfonts carregarem */
+  @font-face { font-family:'Poppins'; font-display:swap; src:local(''); }
+  @font-face { font-family:'Inter';   font-display:swap; src:local(''); }
+
   /* ═══════════════════════════════════════════════════
      RESET + TOKENS  (radix-ui-design-system)
   ═══════════════════════════════════════════════════ */
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  /* scroll-behavior via JS para não afetar ancoragens e performance */
   html { scroll-behavior:smooth; }
   body {
     font-family:'Inter',sans-serif;
@@ -131,7 +108,7 @@
 
   /* ── Container ── */
   .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
-  .section { padding:var(--sp-xl) 0; position:relative; }
+  .section { padding:var(--sp-xl) 0; position:relative; content-visibility:auto; contain-intrinsic-size:0 800px; }
   .section--surface  { background:var(--c-surface); }
   .section--surface2 { background:var(--c-surface2); }
   .tc { text-align:center; }
@@ -1060,6 +1037,38 @@
   @media (max-width:680px) {
     .selos-grid { grid-template-columns:1fr !important; }
   }
+
+  /* ═══════════════════════════════════════════════════
+     SOCIAL PROOF TOAST (frontend-design)
+  ═══════════════════════════════════════════════════ */
+  #sp-toast {
+    position:fixed; bottom:80px; left:20px; z-index:1800;
+    background:rgba(12,12,28,0.96); border:1px solid rgba(255,255,255,0.08);
+    border-radius:var(--r-md); padding:12px 16px;
+    display:flex; align-items:center; gap:12px;
+    max-width:280px; backdrop-filter:blur(16px);
+    box-shadow:0 8px 32px rgba(0,0,0,0.4);
+    transform:translateX(-320px);
+    transition:transform 0.5s cubic-bezier(0.16,1,0.3,1);
+    pointer-events:none;
+  }
+  #sp-toast.show { transform:translateX(0); }
+  .sp-avatar {
+    width:36px; height:36px; min-width:36px; border-radius:50%;
+    background:linear-gradient(135deg,var(--c-green),var(--c-green-d));
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--f-head); font-weight:800; font-size:0.7rem; color:#fff;
+    flex-shrink:0;
+  }
+  .sp-text { font-size:0.78rem; color:var(--c-t2); line-height:1.45; }
+  .sp-text strong { color:var(--c-white); }
+  .sp-time { font-size:0.68rem; color:var(--c-t3); margin-top:2px; }
+  .sp-dot {
+    width:7px; height:7px; min-width:7px; border-radius:50%;
+    background:var(--c-green);
+    animation:ping 2s ease-in-out infinite;
+  }
+  @media (max-width:480px) { #sp-toast { bottom:90px; max-width:240px; } }
   </style>
 </head>
 <body>
@@ -1098,11 +1107,14 @@
     </p>
 
     <div class="hero-ctas" id="hero-ctas">
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" aria-label="Acessar meus livros agora">
-        ACESSAR MEU ACERVO AGORA
+      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" aria-label="Garantir acesso por R$19,90">
+        <span class="btn-icon" aria-hidden="true">📚</span> GARANTIR ACESSO — R$19,90
       </a>
       <a href="#precos" class="btn btn-outline">Ver Planos</a>
     </div>
+    <p id="hero-price-note" style="font-size:0.76rem;color:var(--c-t3);margin-top:12px;opacity:0;letter-spacing:0.3px;">
+      ✓ Pagamento único &nbsp;·&nbsp; ✓ Acesso vitalício &nbsp;·&nbsp; ✓ Garantia de 7 dias
+    </p>
 
     <div class="hero-security" id="hero-sec" aria-label="Garantias de segurança">
       <div class="sec-pill">
@@ -1175,7 +1187,9 @@
           <img
             src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/IFQbpQ6684816.jpeg"
             alt="Biblioteca da Meia-Noite — acervo com mais de 20.000 livros"
-            loading="lazy"
+            loading="eager"
+            fetchpriority="high"
+            width="520" height="390"
           />
         </div>
         <div class="float-badge" aria-label="+20.000 Livros">+20.000<br>LIVROS</div>
@@ -1224,9 +1238,9 @@
     </div>
 
     <div class="books-grid">
-      <article class="book-card" data-reveal="up" style="--d:0.05s" aria-label="Corte de Espinhos e Rosas Vol 1">
+      <article class="book-card" data-reveal="up" data-d="0.05" aria-label="Corte de Espinhos e Rosas Vol 1">
         <div class="book-img">
-          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/lNMGwr7258721.jpeg" alt="Corte de Espinhos e Rosas Vol 1" loading="lazy"/>
+          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/lNMGwr7258721.jpeg" alt="Corte de Espinhos e Rosas Vol 1" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
           <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
         </div>
@@ -1236,9 +1250,9 @@
         </div>
       </article>
 
-      <article class="book-card" data-reveal="up" style="--d:0.10s" aria-label="Serpente e as Asas Feitas de Noite">
+      <article class="book-card" data-reveal="up" data-d="0.10" aria-label="Serpente e as Asas Feitas de Noite">
         <div class="book-img">
-          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/wDSHoj7711586.jpeg" alt="Serpente e as Asas Feitas de Noite" loading="lazy"/>
+          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/wDSHoj7711586.jpeg" alt="Serpente e as Asas Feitas de Noite" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
           <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
         </div>
@@ -1248,9 +1262,9 @@
         </div>
       </article>
 
-      <article class="book-card" data-reveal="up" style="--d:0.15s" aria-label="Box Os Bridgertons">
+      <article class="book-card" data-reveal="up" data-d="0.15" aria-label="Box Os Bridgertons">
         <div class="book-img">
-          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/RAaJfe7875930.jpeg" alt="Box Os Bridgertons" loading="lazy"/>
+          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/RAaJfe7875930.jpeg" alt="Box Os Bridgertons" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
           <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
         </div>
@@ -1260,9 +1274,9 @@
         </div>
       </article>
 
-      <article class="book-card" data-reveal="up" style="--d:0.20s" aria-label="Mindset">
+      <article class="book-card" data-reveal="up" data-d="0.20" aria-label="Mindset">
         <div class="book-img">
-          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/MzdEJt8617332.jpeg" alt="Mindset: A Nova Psicologia do Sucesso" loading="lazy"/>
+          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/MzdEJt8617332.jpeg" alt="Mindset: A Nova Psicologia do Sucesso" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
           <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
         </div>
@@ -1272,9 +1286,9 @@
         </div>
       </article>
 
-      <article class="book-card" data-reveal="up" style="--d:0.25s" aria-label="Quarta Asa Vol 1">
+      <article class="book-card" data-reveal="up" data-d="0.25" aria-label="Quarta Asa Vol 1">
         <div class="book-img">
-          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/hCYsKX8817171.jpeg" alt="Quarta Asa Vol 1" loading="lazy"/>
+          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/hCYsKX8817171.jpeg" alt="Quarta Asa Vol 1" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
           <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
         </div>
@@ -1284,9 +1298,9 @@
         </div>
       </article>
 
-      <article class="book-card" data-reveal="up" style="--d:0.30s" aria-label="O Poder do Hábito">
+      <article class="book-card" data-reveal="up" data-d="0.30" aria-label="O Poder do Hábito">
         <div class="book-img">
-          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/74da2f4b.png" alt="O Poder do Hábito" loading="lazy"/>
+          <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/74da2f4b.png" alt="O Poder do Hábito" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
           <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
         </div>
@@ -1296,7 +1310,7 @@
         </div>
       </article>
 
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-more" data-reveal="up" style="--d:0.35s" aria-label="Ver todos os 20.000 títulos">
+      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-more" data-reveal="up" data-d="0.35" aria-label="Ver todos os 20.000 títulos">
         <div class="more-spin" aria-hidden="true">✦</div>
         <p>E MUITOS OUTROS!</p>
         <small>+20.000 títulos inclusos</small>
@@ -1304,10 +1318,11 @@
     </div>
 
     <div data-reveal="up" style="text-align:center;margin-top:40px;">
-      <p style="font-family:var(--f-head);font-size:1.05rem;font-weight:700;color:var(--c-t2);letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;">Acesso a todos os livros</p>
+      <p style="font-family:var(--f-head);font-size:1.05rem;font-weight:700;color:var(--c-t2);letter-spacing:0.5px;margin-bottom:8px;text-transform:uppercase;">Tudo isso incluso no seu acervo</p>
       <p style="font-family:var(--f-head);font-size:2.4rem;font-weight:900;line-height:1.1;">
-        A partir de <span class="g-green" style="font-size:2.8rem;">R$1,99</span>
+        Acesse tudo por <span class="g-green" style="font-size:2.8rem;">R$19,90</span>
       </p>
+      <p style="font-size:0.9rem;color:var(--c-t3);margin-top:6px;margin-bottom:0;">Acesso vitalício a mais de 20.000 livros — menos que o preço de 1 livro físico</p>
       <div class="savings-total" data-reveal="up">
         <span class="savings-label">Os 6 livros acima comprados separado custariam</span>
         <span class="savings-cross">R$384,40</span>
@@ -1369,7 +1384,7 @@
     </div>
     <div class="reviews-grid">
 
-      <div class="review-card" data-reveal="up" style="--d:0.05s">
+      <div class="review-card" data-reveal="up" data-d="0.05">
         <div class="review-stars" aria-label="5 estrelas">★★★★★</div>
         <p class="review-text">"Melhor compra que fiz! São literalmente milhares de livros. Já li mais de 30 títulos em dois meses. Nunca mais vou comprar livro individual."</p>
         <div class="review-author">
@@ -1381,7 +1396,7 @@
         </div>
       </div>
 
-      <div class="review-card" data-reveal="up" style="--d:0.12s">
+      <div class="review-card" data-reveal="up" data-d="0.12">
         <div class="review-stars" aria-label="5 estrelas">★★★★★</div>
         <p class="review-text">"Tinha receio mas chegou tudo certinho no e-mail. Achei Corte de Espinhos, Quarta Asa, todos os Bridgertons... acervo incrível. Recomendo!"</p>
         <div class="review-author">
@@ -1393,7 +1408,7 @@
         </div>
       </div>
 
-      <div class="review-card" data-reveal="up" style="--d:0.20s">
+      <div class="review-card" data-reveal="up" data-d="0.20">
         <div class="review-stars" aria-label="5 estrelas">★★★★★</div>
         <p class="review-text">"Por R$19,90 acesso 20.000 livros para sempre? Isso é absurdo de bom. Indiquei para todas as minhas amigas. A Fernanda entrega muito mais do que promete!"</p>
         <div class="review-author">
@@ -1405,6 +1420,14 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- CTA pós-reviews: captura no momento de maior confiança -->
+    <div data-reveal="up" style="margin-top:48px;text-align:center;">
+      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:1rem;padding:18px 48px;">
+        <span class="btn-icon" aria-hidden="true">📚</span> QUERO MEU ACESSO AGORA — R$19,90
+      </a>
+      <p style="font-size:0.75rem;color:var(--c-t3);margin-top:10px;">✓ Garantia de 7 dias &nbsp;·&nbsp; ✓ Acesso imediato &nbsp;·&nbsp; ✓ Pagamento único</p>
     </div>
   </div>
 </section>
@@ -1436,6 +1459,45 @@
         </div>
         <h3 class="bonus-title">Comunidade de Leitores</h3>
         <p class="bonus-desc">Junte-se a pessoas que têm o mesmo ideal e estilo que você! Compartilhe indicações, converse sobre livros e faça amizades no grupo exclusivo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HOW IT WORKS ══════════ -->
+<section class="section section--surface2" aria-labelledby="como-title">
+  <div class="wrap tc">
+    <div data-reveal="up">
+      <div class="chip">Como Funciona</div>
+      <h2 class="title-lg" id="como-title">
+        Como funciona o<br><span class="g-green">seu acesso</span>
+      </h2>
+      <p class="subtitle">Simples, rápido e sem complicação. Em menos de 5 minutos você já está lendo.</p>
+    </div>
+    <div class="how-grid" style="margin-top:44px">
+      <div class="how-card" data-reveal="up" style="transition-delay:0.05s">
+        <div class="how-step" aria-hidden="true">1</div>
+        <div class="how-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div class="how-title">Escolha seu Plano</div>
+        <div class="how-desc">Selecione o plano Básico ou Premium e conclua o pagamento com total segurança.</div>
+      </div>
+      <div class="how-card" data-reveal="up" style="transition-delay:0.10s">
+        <div class="how-step" aria-hidden="true">2</div>
+        <div class="how-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="how-title">Receba por E-mail</div>
+        <div class="how-desc">O acesso à Área de Membros chega no seu e-mail imediatamente após o pagamento.</div>
+      </div>
+      <div class="how-card" data-reveal="up" style="transition-delay:0.15s">
+        <div class="how-step" aria-hidden="true">3</div>
+        <div class="how-icon" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="how-title">Acesse o Acervo</div>
+        <div class="how-desc">Na área de membros, acesse o Drive com todos os livros separados e organizados por gênero.</div>
       </div>
     </div>
   </div>
@@ -1501,7 +1563,7 @@
           <div class="pf"><span class="pf-check">✓</span> Acesso por 2 meses</div>
         </div>
         <div class="price-upgrade-note">Há uma opção mais completa disponível abaixo.</div>
-        <a href="https://go.pepperpay.com.br/onnv9" id="btn-basic" class="btn btn-outline btn-full">Acesso Básico →</a>
+        <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" id="btn-basic" class="btn btn-outline btn-full">Acesso Básico →</a>
         <div class="price-note">Compra 100% segura</div>
       </div>
 
@@ -1591,47 +1653,6 @@
   </div>
 </section>
 
-<!-- ══════════ HOW IT WORKS ══════════ -->
-<section class="section section--surface2" aria-labelledby="como-title">
-  <div class="wrap tc">
-    <div data-reveal="up">
-      <div class="chip">Como Funciona</div>
-      <h2 class="title-lg" id="como-title">
-        Como funciona o<br><span class="g-green">seu acesso</span>
-      </h2>
-      <p class="subtitle">Simples, rápido e sem complicação. Em menos de 5 minutos você já está lendo.</p>
-    </div>
-    <div class="how-grid" style="margin-top:44px">
-      <div class="how-card" data-reveal="up" style="transition-delay:0.05s">
-        <div class="how-step" aria-hidden="true">1</div>
-        <div class="how-icon" aria-hidden="true">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        </div>
-        <div class="how-title">Escolha seu Plano</div>
-        <div class="how-desc">Selecione o plano Básico ou Premium e conclua o pagamento com total segurança.</div>
-      </div>
-      <div class="how-card" data-reveal="up" style="transition-delay:0.10s">
-        <div class="how-step" aria-hidden="true">2</div>
-        <div class="how-icon" aria-hidden="true">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        </div>
-        <div class="how-title">Receba por E-mail</div>
-        <div class="how-desc">O acesso à Área de Membros chega no seu e-mail imediatamente após o pagamento.</div>
-      </div>
-      <div class="how-card" data-reveal="up" style="transition-delay:0.15s">
-        <div class="how-step" aria-hidden="true">3</div>
-        <div class="how-icon" aria-hidden="true">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </div>
-        <div class="how-title">Acesse o Acervo</div>
-        <div class="how-desc">Na área de membros, acesse o Drive com todos os livros separados e organizados por gênero.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- ══════════ ABOUT ══════════ -->
 <section class="section section--surface" aria-labelledby="sobre-title">
   <div class="wrap">
@@ -1644,6 +1665,8 @@
               src="fernanda.png"
               alt="Fernanda Oliveira — Responsável pela Biblioteca da Meia-Noite"
               loading="lazy"
+              decoding="async"
+              width="340" height="400"
             />
           </div>
         </div>
@@ -1656,6 +1679,11 @@
         <p>Um ambiente para amantes da leitura onde eu e minha equipe adicionamos todos os meses os melhores lançamentos do mercado, para todos os gostos.</p>
         <p>Se você ama ler ou busca conhecimento nos livros, tenho certeza de que encontrou a <strong style="color:var(--c-white)">maior biblioteca digital do Brasil.</strong></p>
         <p style="color:var(--c-green);font-weight:600">Qualquer dúvida, eu e minha equipe estamos à disposição.</p>
+        <div style="margin-top:28px;">
+          <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:0.95rem;padding:15px 36px;">
+            ACESSAR A BIBLIOTECA — R$19,90
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1677,35 +1705,42 @@
           Como vou receber meu acesso?
           <span class="faq-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-answer" id="fa1"><div class="faq-answer-inner">O acesso chega em seu e-mail imediatamente após o pagamento. Lembre-se de informar corretamente o e-mail no momento da compra.</div></div>
+        <div class="faq-answer" id="fa1"><div class="faq-answer-inner">O acesso chega em seu e-mail imediatamente após o pagamento. Você recebe o link para a Área de Membros com todos os livros organizados por gênero. Lembre-se de informar corretamente o e-mail no momento da compra.</div></div>
       </div>
       <div class="faq-card" role="listitem" data-reveal="up" style="transition-delay:0.10s">
         <button class="faq-btn" aria-expanded="false" aria-controls="fa2">
-          O que é o Grupo de Leitores?
+          Os livros funcionam no Kindle?
           <span class="faq-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-answer" id="fa2"><div class="faq-answer-inner">Uma comunidade no WhatsApp para vocês compartilharem livros e indicações entre si. Um espaço de troca entre leitores apaixonados!</div></div>
+        <div class="faq-answer" id="fa2"><div class="faq-answer-inner">Sim! O acervo inclui livros em PDF e EPUB — ambos os formatos são compatíveis com Kindle, Kobo, tablets Android, iPad e leitura diretamente no celular. Você recebe orientações de como transferir os arquivos com o seu acesso.</div></div>
       </div>
       <div class="faq-card" role="listitem" data-reveal="up" style="transition-delay:0.15s">
         <button class="faq-btn" aria-expanded="false" aria-controls="fa3">
-          Meu acesso é vitalício?
+          Qual a diferença entre o Plano Básico e o Premium?
           <span class="faq-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-answer" id="fa3"><div class="faq-answer-inner">Sim, no Plano Premium! O Plano Básico tem duração de 2 meses. Para acesso para sempre, escolha o Plano Premium.</div></div>
+        <div class="faq-answer" id="fa3"><div class="faq-answer-inner">O Plano Básico (R$1,99) dá acesso a 2.500 livros em PDF por 2 meses — ideal para quem quer experimentar. O Plano Premium (R$19,90) dá acesso a todos os 20.000 livros em PDF e EPUB, mais Audiobooks, atualizações mensais, grupo de leitores e acesso vitalício para sempre.</div></div>
       </div>
       <div class="faq-card" role="listitem" data-reveal="up" style="transition-delay:0.20s">
         <button class="faq-btn" aria-expanded="false" aria-controls="fa4">
-          E se não encontrar o livro que procuro?
+          Meu acesso é vitalício?
           <span class="faq-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-answer" id="fa4"><div class="faq-answer-inner">Basta nos chamar no direct, enviar uma mensagem por e-mail ou chamar o suporte no grupo! Adicionamos o mais rápido possível para você.</div></div>
+        <div class="faq-answer" id="fa4"><div class="faq-answer-inner">Sim, no Plano Premium! Você paga uma vez e tem acesso para sempre — sem mensalidades, sem cobranças extras. O Plano Básico tem duração de 2 meses. Para acesso para sempre, escolha o Plano Premium.</div></div>
       </div>
       <div class="faq-card" role="listitem" data-reveal="up" style="transition-delay:0.25s">
         <button class="faq-btn" aria-expanded="false" aria-controls="fa5">
-          Tem atualizações de novos títulos?
+          É uma assinatura? Vou ser cobrado todo mês?
           <span class="faq-chevron" aria-hidden="true">▾</span>
         </button>
-        <div class="faq-answer" id="fa5"><div class="faq-answer-inner">Sim! Temos atualizações dos maiores lançamentos todos os meses. Você sempre terá acesso aos títulos mais novos do mercado.</div></div>
+        <div class="faq-answer" id="fa5"><div class="faq-answer-inner">Não! Você paga somente uma vez. O Plano Premium é um pagamento único de R$19,90 que dá acesso vitalício — sem mensalidades, sem renovação automática e sem surpresas na fatura.</div></div>
+      </div>
+      <div class="faq-card" role="listitem" data-reveal="up" style="transition-delay:0.30s">
+        <button class="faq-btn" aria-expanded="false" aria-controls="fa6">
+          E se não encontrar o livro que procuro?
+          <span class="faq-chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-answer" id="fa6"><div class="faq-answer-inner">Basta entrar em contato pelo e-mail ou pelo grupo no WhatsApp! Adicionamos novos títulos toda semana. E se por algum motivo você não ficar satisfeito, temos garantia de 7 dias com reembolso total.</div></div>
       </div>
     </div>
   </div>
@@ -1715,13 +1750,13 @@
 <section class="section section--surface" aria-labelledby="promo-title">
   <div class="wrap tc">
     <div class="promo-banner" data-reveal="up">
-      <div class="chip chip--gold" style="margin-bottom:18px">Oferta Diária</div>
-      <h3 id="promo-title">Acesso por R$1,99</h3>
+      <div class="chip chip--gold" style="margin-bottom:18px">Plano Básico Promocional</div>
+      <h3 id="promo-title">Plano Básico por R$1,99</h3>
       <p>
-        Todo dia as <strong>30 primeiras compras</strong> garantem o plano por apenas R$1,99.
-        As vagas costumam esgotar rapidamente, então aproveite enquanto disponível.<br><br>
-        O valor promocional existe para beneficiar quem chega primeiro — os demais planos
-        mantêm a estrutura necessária para suportar o acervo, as atualizações mensais e o suporte.
+        O Plano Básico dá acesso a <strong>2.500 livros PDF</strong> por apenas R$1,99 — disponível para as
+        <strong>30 primeiras compras do dia.</strong> As vagas costumam esgotar rapidamente.<br><br>
+        Para acesso <strong>vitalício a todos os 20.000 livros</strong> (PDF, EPUB + Audiobooks), o Plano Premium está disponível por R$19,90.
+        <a href="#precos" style="color:var(--c-gold);font-weight:700">Compare os planos →</a>
       </p>
     </div>
   </div>
@@ -1736,9 +1771,26 @@
       <span class="g-green">20.000 livros te aguardam.</span>
     </h2>
     <p data-reveal="up">Acesso imediato e vitalício — com garantia de reembolso total em 7 dias.</p>
+
+    <!-- Preço visual antes do botão final — elimina fricção de preço no momento da decisão -->
+    <div data-reveal="up" style="display:inline-flex;align-items:center;gap:16px;background:rgba(0,228,105,0.06);border:1px solid rgba(0,228,105,0.18);border-radius:var(--r-lg);padding:16px 32px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;">
+      <div>
+        <div style="font-size:0.75rem;color:var(--c-t3);text-decoration:line-through;">De R$97,00</div>
+        <div style="font-family:var(--f-head);font-size:2rem;font-weight:900;color:var(--c-green);line-height:1;">R$19,90 <span style="font-size:0.9rem;font-weight:500;color:var(--c-t2);">à vista</span></div>
+        <div style="font-size:0.8rem;color:var(--c-t3);">ou 5× de R$5,70 — acesso vitalício</div>
+      </div>
+      <div style="width:1px;height:48px;background:var(--c-border);"></div>
+      <div style="font-size:0.82rem;color:var(--c-t2);text-align:left;max-width:200px;">
+        ✓ 20.000 livros PDF + EPUB<br>
+        ✓ Audiobooks inclusos<br>
+        ✓ Acesso para sempre<br>
+        ✓ Garantia de 7 dias
+      </div>
+    </div>
+
     <div data-reveal="up">
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:1.05rem;padding:20px 52px">
-        <span class="btn-icon" aria-hidden="true">📚</span> GARANTIR MEU ACESSO
+      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:1.05rem;padding:20px 52px" id="final-cta-btn">
+        <span class="btn-icon" aria-hidden="true">📚</span> GARANTIR MEU ACESSO — R$19,90
       </a>
     </div>
     <div class="final-security" data-reveal="up">
@@ -1758,6 +1810,10 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--c-green)" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
         Acesso Vitalício
       </div>
+      <div class="fsec">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color:var(--c-green)" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Suporte no WhatsApp
+      </div>
     </div>
   </div>
 </section>
@@ -1772,31 +1828,48 @@
 
 <!-- ══════════ STICKY BAR ══════════ -->
 <div id="sticky" role="complementary" aria-label="Oferta especial">
-  <p><strong>20.000 livros</strong> por apenas <strong>R$19,90</strong></p>
-  <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="white-space:nowrap">GARANTIR AGORA</a>
+  <div style="display:flex;flex-direction:column;gap:2px;">
+    <p><strong>20.000 livros</strong> por apenas <strong style="color:var(--c-green)">R$19,90</strong></p>
+    <p style="font-size:0.72rem;color:var(--c-t3);">
+      <span id="sticky-viewers" style="color:var(--c-gold);font-weight:700;">47 pessoas</span> viram essa oferta hoje
+    </p>
+  </div>
+  <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="white-space:nowrap">⚡ GARANTIR AGORA</a>
+</div>
+
+<!-- ══════════ SOCIAL PROOF TOAST ══════════ -->
+<div id="sp-toast" role="status" aria-live="polite" aria-atomic="true">
+  <div class="sp-dot" aria-hidden="true"></div>
+  <div class="sp-avatar" id="sp-avatar" aria-hidden="true">MC</div>
+  <div>
+    <div class="sp-text"><strong id="sp-name">Maria C.</strong> acabou de garantir acesso</div>
+    <div class="sp-time" id="sp-time">há 2 minutos</div>
+  </div>
 </div>
 
 <!-- ══════════ UPSELL MODAL ══════════ -->
 <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-t">
   <div class="modal-box">
     <button class="modal-x" id="modalX" aria-label="Fechar">✕</button>
-    <div class="modal-chip">Oferta Exclusiva</div>
-    <h2 class="modal-title" id="modal-t">Plano Premium</h2>
-    <p style="font-size:0.85rem;color:var(--c-t2)">20.000 livros em PDF BEST SELLERS</p>
+    <div class="modal-chip">Antes de ir embora...</div>
+    <h2 class="modal-title" id="modal-t">Quer 20.000 livros por mais R$8?</h2>
+    <p style="font-size:0.85rem;color:var(--c-t2);margin-bottom:4px">Você escolheu o Plano Básico (R$1,99 / 2.500 livros / 2 meses).</p>
+    <p style="font-size:0.85rem;color:var(--c-t2)">Oferta exclusiva: por apenas <strong style="color:var(--c-green)">R$9,99</strong>, acesse o acervo completo vitalício:</p>
     <div class="modal-price-block">
-      <div class="modal-price-old">De R$19,90</div>
-      <div class="modal-price-new">R$9,99 <span style="font-size:1rem;font-weight:400">à vista</span></div>
+      <div class="modal-price-old">De R$19,90 — só agora por</div>
+      <div class="modal-price-new">R$9,99 <span style="font-size:1rem;font-weight:400">vitalício</span></div>
     </div>
     <div class="modal-feats">
-      <div class="modal-feat"><span class="chk">✓</span> 20.000 Livros PDF</div>
-      <div class="modal-feat"><span class="chk">✓</span> Audiobooks</div>
-      <div class="modal-feat"><span class="chk">✓</span> Atualizações de lançamentos</div>
-      <div class="modal-feat"><span class="chk">✓</span> Compatíveis com Kindle</div>
-      <div class="modal-feat"><span class="chk">✓</span> Grupo de Leitores</div>
-      <div class="modal-feat"><span class="chk">✓</span> Acesso vitalício</div>
+      <div class="modal-feat"><span class="chk">✓</span> 20.000 Livros PDF + EPUB (vs. 2.500 no Básico)</div>
+      <div class="modal-feat"><span class="chk">✓</span> Audiobooks inclusos</div>
+      <div class="modal-feat"><span class="chk">✓</span> Atualizações mensais com lançamentos</div>
+      <div class="modal-feat"><span class="chk">✓</span> Compatíveis com Kindle e todos os devices</div>
+      <div class="modal-feat"><span class="chk">✓</span> Grupo de Leitores no WhatsApp</div>
+      <div class="modal-feat"><span class="chk">✓</span> Acesso vitalício — paga uma vez, para sempre</div>
     </div>
-    <a href="https://checkout.korvex.com.br/checkout/cmnj0c2h7085o1xp96u4ja4tz?offer=QH2E1P6" target="_blank" class="btn btn-green btn-full">Quero o Plano Premium</a>
-    <p style="margin-top:14px;font-size:0.72rem;color:var(--c-t3)">Compra 100% segura</p>
+    <a href="https://checkout.korvex.com.br/checkout/cmnj0c2h7085o1xp96u4ja4tz?offer=QH2E1P6" target="_blank" class="btn btn-green btn-full">Quero o Plano Premium — R$9,99</a>
+    <button class="modal-decline" id="modalDecline">Não, prefiro só 2.500 livros por 2 meses (Básico)</button>
+    <p style="margin-top:10px;font-size:0.72rem;color:var(--c-t3)">Compra 100% segura · Garantia de 7 dias</p>
   </div>
 </div>
 
@@ -1847,10 +1920,17 @@
 
   /* ── Parallax hero bg (fixing-motion-performance) ── */
   const heroBg = document.querySelector('.hero-bg');
+  let parallaxRaf = false;
   window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if (y < window.innerHeight) {
-      heroBg.style.transform = `translateY(${y * 0.28}px) scale(1.05)`;
+    if (!parallaxRaf) {
+      parallaxRaf = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (y < window.innerHeight) {
+          heroBg.style.transform = `translateY(${y * 0.28}px) scale(1.05)`;
+        }
+        parallaxRaf = false;
+      });
     }
   }, {passive: true});
 
@@ -1859,7 +1939,7 @@
 
   function animateHero() {
     if (reduced) {
-      ['hero-live','hero-kicker','hero-title','hero-sub','hero-ctas','hero-sec']
+      ['hero-live','hero-kicker','hero-title','hero-sub','hero-ctas','hero-sec','hero-price-note']
         .forEach(id => { const el = document.getElementById(id); if(el) el.style.opacity = 1; });
       return;
     }
@@ -1870,6 +1950,7 @@
       {id:'hero-sub',    delay:640,  from:{opacity:0,transform:'translateY(22px)'},  to:{opacity:1,transform:'translateY(0)'}},
       {id:'hero-ctas',   delay:800,  from:{opacity:0,transform:'translateY(18px)'},  to:{opacity:1,transform:'translateY(0)'}},
       {id:'hero-sec',    delay:960,  from:{opacity:0,transform:'translateY(14px)'},  to:{opacity:1,transform:'translateY(0)'}},
+      {id:'hero-price-note', delay:1100, from:{opacity:0,transform:'translateY(8px)'}, to:{opacity:1,transform:'translateY(0)'}},
     ];
     seq.forEach(({id, delay, from, to}) => {
       const el = document.getElementById(id);
@@ -1883,17 +1964,21 @@
   }
   animateHero();
 
-  /* ── Scroll progress bar ── */
+  /* ── Scroll progress bar + Nav — handler único com rAF ── */
   const bar = document.getElementById('progress-bar');
-  window.addEventListener('scroll', () => {
-    const max = document.body.scrollHeight - window.innerHeight;
-    bar.style.width = (window.scrollY / max * 100) + '%';
-  }, {passive: true});
-
-  /* ── Nav scroll effect ── */
   const nav = document.getElementById('nav');
+  const bodyScrollHeight = () => document.body.scrollHeight - window.innerHeight;
+  let scrollRaf = false;
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
+    if (!scrollRaf) {
+      scrollRaf = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        bar.style.width = (y / bodyScrollHeight() * 100) + '%';
+        nav.classList.toggle('scrolled', y > 60);
+        scrollRaf = false;
+      });
+    }
   }, {passive: true});
 
   /* ── Scroll reveal (IntersectionObserver) ── */
@@ -1901,7 +1986,7 @@
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        const d = parseFloat(getComputedStyle(e.target).getPropertyValue('--d') || '0');
+        const d = parseFloat(e.target.dataset.d || '0');
         if (d > 0) {
           setTimeout(() => e.target.classList.add('in'), d * 1000);
         } else {
@@ -1939,12 +2024,15 @@
   }, {threshold: 0.5});
   counters.forEach(c => counterIO.observe(c));
 
-  /* ── FAQ Accordion ── */
+  /* ── FAQ Accordion — lê scrollHeight antes de escrever (evita forced reflow) ── */
   document.querySelectorAll('.faq-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const card = btn.closest('.faq-card');
       const ans  = card.querySelector('.faq-answer');
       const open = card.classList.contains('is-open');
+
+      // Leitura em lote antes de qualquer escrita
+      const newHeight = open ? null : ans.scrollHeight;
 
       document.querySelectorAll('.faq-card.is-open').forEach(c => {
         c.classList.remove('is-open');
@@ -1954,7 +2042,7 @@
 
       if (!open) {
         card.classList.add('is-open');
-        ans.style.maxHeight = ans.scrollHeight + 'px';
+        ans.style.maxHeight = newHeight + 'px';
         btn.setAttribute('aria-expanded', 'true');
       }
     });
@@ -1969,14 +2057,20 @@
 
   /* ── Modal ── */
   const modal = document.getElementById('modal');
-  const basicUrl = 'https://go.pepperpay.com.br/onnv9';
+  const basicUrl = 'https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g';
   const openModal = () => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
-  const closeModal = () => { modal.classList.remove('open'); document.body.style.overflow = ''; };
+  const closeModal = () => {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    // Ao fechar o modal de upsell do básico, redireciona para o checkout básico
+    if (modal._fromBasic) { window.location.href = basicUrl; modal._fromBasic = false; }
+  };
   /* Intercepta clique no plano básico → abre modal de upsell */
   const btnBasic = document.getElementById('btn-basic');
   if (btnBasic) {
     btnBasic.addEventListener('click', e => {
       e.preventDefault();
+      modal._fromBasic = true;
       openModal();
     });
   }
@@ -1984,15 +2078,27 @@
   document.getElementById('modalX').addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+  /* Botão "Não, prefiro básico" — fecha e redireciona para checkout básico */
+  const modalDecline = document.getElementById('modalDecline');
+  if (modalDecline) {
+    modalDecline.addEventListener('click', () => {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+      modal._fromBasic = false;
+      window.location.href = basicUrl;
+    });
+  }
 
-  /* ── Button ripple on click (design-spells) ── */
+  /* ── Button ripple on click — leitura e escrita agrupadas num rAF ── */
   document.querySelectorAll('.btn').forEach(btn => {
     btn.addEventListener('click', function(e) {
-      const rect = this.getBoundingClientRect();
-      const rx = ((e.clientX - rect.left) / rect.width * 100) + '%';
+      const rect = this.getBoundingClientRect(); // leitura
+      const rx = ((e.clientX - rect.left) / rect.width  * 100) + '%';
       const ry = ((e.clientY - rect.top)  / rect.height * 100) + '%';
-      this.style.setProperty('--rx', rx);
-      this.style.setProperty('--ry', ry);
+      requestAnimationFrame(() => {             // escrita no próximo frame
+        this.style.setProperty('--rx', rx);
+        this.style.setProperty('--ry', ry);
+      });
     });
   });
 
@@ -2004,17 +2110,22 @@
     }, {passive: true});
   }
 
-  /* ── Magnetic buttons (design-spells physics) ── */
+  /* ── Magnetic buttons — getBoundingClientRect cacheado no mouseenter (evita forced reflow no mousemove) ── */
   if (!reduced && window.matchMedia('(hover:hover)').matches) {
     document.querySelectorAll('.btn-green').forEach(btn => {
+      let cachedRect = null;
+      btn.addEventListener('mouseenter', function() {
+        cachedRect = this.getBoundingClientRect();
+      });
       btn.addEventListener('mousemove', function(e) {
-        const r = this.getBoundingClientRect();
-        const dx = (e.clientX - (r.left + r.width  / 2)) * 0.22;
-        const dy = (e.clientY - (r.top  + r.height / 2)) * 0.22;
+        if (!cachedRect) return;
+        const dx = (e.clientX - (cachedRect.left + cachedRect.width  / 2)) * 0.22;
+        const dy = (e.clientY - (cachedRect.top  + cachedRect.height / 2)) * 0.22;
         this.style.transform = `translate(${dx}px,${dy}px) scale(1.03)`;
         this.style.boxShadow = `0 0 56px rgba(0,228,105,0.4), 0 20px 40px rgba(0,0,0,0.4)`;
       });
       btn.addEventListener('mouseleave', function() {
+        cachedRect = null;
         this.style.transform = '';
         this.style.boxShadow = '';
       });
@@ -2054,44 +2165,196 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* ── Canvas constellation (canvas-design upgrade) ── */
-  // Upgrade existing stars: draw connecting lines between nearby stars
-  const origDraw = draw;
+  /* ── Canvas constellation (otimizado: grade espacial evita O(n²)) ── */
+  const CELL = 110; // distância máxima de conexão
   function drawConstellation(t) {
     ctx.clearRect(0, 0, W, H);
-    // Draw lines first (behind stars)
-    for (let i = 0; i < stars.length; i++) {
-      for (let j = i + 1; j < stars.length; j++) {
-        const dx = stars[i].x - stars[j].x;
-        const dy = stars[i].y - stars[j].y;
-        const dist = Math.sqrt(dx*dx + dy*dy);
-        if (dist < 110) {
-          const alpha = (1 - dist / 110) * 0.06;
-          ctx.beginPath();
-          ctx.moveTo(stars[i].x, stars[i].y);
-          ctx.lineTo(stars[j].x, stars[j].y);
-          ctx.strokeStyle = `rgba(0,228,105,${alpha})`;
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
+
+    // Grade espacial para pares próximos sem O(n²)
+    const cols = Math.ceil(W / CELL) + 1;
+    const grid = new Map();
+    stars.forEach((s, i) => {
+      const cx = Math.floor(s.x / CELL);
+      const cy = Math.floor(s.y / CELL);
+      const key = cx + ',' + cy;
+      if (!grid.has(key)) grid.set(key, []);
+      grid.get(key).push(i);
+    });
+
+    // Linhas de constelação
+    ctx.lineWidth = 0.6;
+    stars.forEach((s, i) => {
+      const cx = Math.floor(s.x / CELL);
+      const cy = Math.floor(s.y / CELL);
+      for (let ox = -1; ox <= 1; ox++) {
+        for (let oy = -1; oy <= 1; oy++) {
+          const neighbors = grid.get((cx+ox) + ',' + (cy+oy));
+          if (!neighbors) continue;
+          neighbors.forEach(j => {
+            if (j <= i) return;
+            const dx = s.x - stars[j].x;
+            const dy = s.y - stars[j].y;
+            const dist2 = dx*dx + dy*dy;
+            if (dist2 < CELL * CELL) {
+              const alpha = (1 - Math.sqrt(dist2) / CELL) * 0.06;
+              ctx.beginPath();
+              ctx.moveTo(s.x, s.y);
+              ctx.lineTo(stars[j].x, stars[j].y);
+              ctx.strokeStyle = `rgba(0,228,105,${alpha.toFixed(3)})`;
+              ctx.stroke();
+            }
+          });
         }
       }
-    }
-    // Draw stars
+    });
+
+    // Estrelas
     stars.forEach(s => {
       const alpha = s.a * (0.35 + 0.65 * Math.abs(Math.sin(t * 0.001 * s.sp * 500 + s.ph)));
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+      ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(3)})`;
       ctx.fill();
     });
     raf = requestAnimationFrame(drawConstellation);
   }
 
-  // Cancel existing raf and restart with constellation version
+  // Substitui o loop original pelo otimizado
   cancelAnimationFrame(raf);
   requestAnimationFrame(drawConstellation);
 
+  /* ── Social Proof Toast (frontend-design) ── */
+  const spData = [
+    {initials:'JF', name:'Juliana F.', time:'há 1 minuto'},
+    {initials:'MC', name:'Maria C.',   time:'há 3 minutos'},
+    {initials:'PA', name:'Priscila A.',time:'há 5 minutos'},
+    {initials:'RS', name:'Rodrigo S.', time:'há 7 minutos'},
+    {initials:'TL', name:'Tatiane L.', time:'há 9 minutos'},
+    {initials:'KM', name:'Karina M.',  time:'há 11 minutos'},
+    {initials:'BP', name:'Beatriz P.', time:'há 14 minutos'},
+    {initials:'LG', name:'Lucas G.',   time:'há 17 minutos'},
+    {initials:'AN', name:'Amanda N.',  time:'há 20 minutos'},
+    {initials:'DC', name:'Diego C.',   time:'há 23 minutos'},
+  ];
+  const spToast   = document.getElementById('sp-toast');
+  const spAvatar  = document.getElementById('sp-avatar');
+  const spName    = document.getElementById('sp-name');
+  const spTimeEl  = document.getElementById('sp-time');
+  let spIdx = 0;
+
+  function showToast() {
+    const d = spData[spIdx % spData.length];
+    spIdx++;
+    spAvatar.textContent = d.initials;
+    spName.textContent   = d.name;
+    spTimeEl.textContent = d.time;
+    spToast.classList.add('show');
+    setTimeout(() => spToast.classList.remove('show'), 4200);
+  }
+
+  // Primeira exibição depois de 12s (usuário já está engajado com a página)
+  setTimeout(() => {
+    showToast();
+    setInterval(showToast, 22000); // a cada 22s
+  }, 12000);
+
+  /* ── Sticky viewers counter — simula visitantes ativos ── */
+  const stickyViewers = document.getElementById('sticky-viewers');
+  if (stickyViewers) {
+    let viewers = 38 + Math.floor(Math.random() * 24); // 38-61
+    function tickViewers() {
+      const delta = Math.random() < 0.5 ? 1 : -1;
+      viewers = Math.max(12, Math.min(99, viewers + delta));
+      stickyViewers.textContent = viewers + ' pessoas';
+      setTimeout(tickViewers, 8000 + Math.random() * 6000);
+    }
+    setTimeout(tickViewers, 5000);
+  }
+
 })();
 </script>
+
+<!-- ── Pixels de rastreamento — final do body para não bloquear renderização ── -->
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2033755147485730');
+fbq('track', 'PageView');
+fbq('track', 'ViewContent', {
+  content_name: 'Biblioteca da Meia-Noite',
+  content_ids: ['biblioteca-premium'],
+  content_type: 'product',
+  value: 19.90,
+  currency: 'BRL'
+});
+
+// InitiateCheckout — event delegation: captura todos os cliques de checkout,
+// inclusive links dentro do modal (abertos depois do carregamento)
+document.body.addEventListener('click', function(e) {
+  var el = e.target.closest('a');
+  if (!el) return;
+  var href = el.getAttribute('href') || '';
+
+  // Plano Premium (R$19,90) — links Korvex principais
+  if (href.indexOf('checkout.korvex.com.br') !== -1 && href.indexOf('cmnj11xlh0ae61rmjys1g2wa6') !== -1) {
+    fbq('track', 'InitiateCheckout', {
+      content_name: 'Biblioteca da Meia-Noite — Plano Premium',
+      value: 19.90,
+      currency: 'BRL',
+      num_items: 1
+    });
+  }
+  // Oferta especial upsell (R$9,99) — link do modal
+  else if (href.indexOf('checkout.korvex.com.br') !== -1 && href.indexOf('cmnj0c2h7085o1xp96u4ja4tz') !== -1) {
+    fbq('track', 'InitiateCheckout', {
+      content_name: 'Biblioteca da Meia-Noite — Oferta Upsell R$9,99',
+      value: 9.99,
+      currency: 'BRL',
+      num_items: 1
+    });
+  }
+  // Plano Básico (R$1,99) — Korvex (mesmo link, rastreado pelo parâmetro de origem)
+  // (condição mantida para compatibilidade — todos os links já apontam para Korvex)
+});
+
+// Botão "Não, prefiro básico" no modal — também rastreia
+var modalDecline = document.getElementById('modalDecline');
+if (modalDecline) {
+  modalDecline.addEventListener('click', function() {
+    fbq('track', 'InitiateCheckout', {
+      content_name: 'Biblioteca da Meia-Noite — Plano Básico (via modal decline)',
+      value: 1.99,
+      currency: 'BRL',
+      num_items: 1
+    });
+  });
+}
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2033755147485730&ev=PageView&noscript=1"
+/></noscript>
+
+<!-- Utmify Pixel -->
+<script>
+window.pixelId = "69d00fd840faa89a70de9c23";
+(function(){var a=document.createElement("script");a.async=true;a.defer=true;a.src="https://cdn.utmify.com.br/scripts/pixel/pixel.js";document.body.appendChild(a);})();
+</script>
+
+<!-- Utmify UTMs -->
+<script
+  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+  data-utmify-prevent-xcod-sck
+  data-utmify-prevent-subids
+  async
+  defer
+></script>
 </body>
 </html>
