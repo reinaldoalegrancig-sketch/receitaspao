@@ -31,7 +31,7 @@
   ═══════════════════════════════════════════════════ */
   *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
   /* scroll-behavior via JS para não afetar ancoragens e performance */
-  html { scroll-behavior:smooth; }
+  html { font-size:16px; scroll-behavior:smooth; }
   body {
     font-family:'Inter',sans-serif;
     background:#06060E;
@@ -238,7 +238,7 @@
   .nav-logo-icon { font-size:1.3rem; }
   .nav-logo span { color:var(--c-green); }
   .nav-cta { display:flex; align-items:center; }
-  .nav-cta .btn { padding:9px 22px; font-size:0.82rem; }
+  .nav-cta .btn { padding:14px 22px; font-size:0.82rem; min-height:44px; }
 
   /* ═══════════════════════════════════════════════════
      HERO  (antigravity-design-expert + canvas-design + animejs)
@@ -308,7 +308,7 @@
     backdrop-filter:blur(16px);
     border:1px solid rgba(255,255,255,0.08);
     border-radius:var(--r-xl); padding:7px 18px;
-    font-size:11px; font-weight:600; color:var(--c-t2);
+    font-size:clamp(0.8rem,2vw,0.85rem); font-weight:600; color:var(--c-t2);
     letter-spacing:2px; margin-bottom:28px;
     opacity:0; /* animated in */
   }
@@ -341,7 +341,7 @@
   .scroll-cue {
     position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
     display:flex; flex-direction:column; align-items:center; gap:6px;
-    font-size:10px; font-weight:600; letter-spacing:2px; color:var(--c-t3);
+    font-size:clamp(0.75rem,1.8vw,0.8rem); font-weight:600; letter-spacing:2px; color:var(--c-t3);
     z-index:3; opacity:0; animation:fadeUp 1s var(--ease) 2.4s forwards;
   }
   .scroll-cue-arrow { animation:arrowBounce 2s ease-in-out infinite; display:block; }
@@ -498,7 +498,7 @@
   .book-overlay-btn {
     background:var(--c-green); color:#fff;
     font-family:var(--f-head); font-size:0.72rem; font-weight:800;
-    padding:7px 16px; border-radius:var(--r-xl);
+    padding:12px 20px; border-radius:var(--r-xl); min-height:44px;
     letter-spacing:0.5px; text-transform:uppercase;
   }
   .book-badge {
@@ -750,7 +750,7 @@
     width:28px; height:28px; min-width:28px; border-radius:50%;
     background:var(--c-card); border:1px solid var(--c-border);
     display:flex; align-items:center; justify-content:center;
-    font-size:11px; color:var(--c-t3);
+    font-size:1rem; color:var(--c-t3);
     transition:all 0.3s var(--ease);
   }
   .faq-card.is-open .faq-chevron {
@@ -867,7 +867,7 @@
   #sticky.show { transform:translateY(0); }
   #sticky p { font-size:0.84rem; font-weight:500; color:var(--c-t2); white-space:nowrap; }
   #sticky p strong { color:var(--c-white); font-weight:700; }
-  #sticky .btn { padding:11px 26px; font-size:0.82rem; }
+  #sticky .btn { padding:14px 26px; font-size:0.82rem; min-height:44px; }
 
   /* ═══════════════════════════════════════════════════
      FOOTER
@@ -925,6 +925,16 @@
     .books-grid { grid-template-columns:1fr; }
   }
   :focus-visible { outline:2px solid var(--c-green); outline-offset:3px; border-radius:4px; }
+
+  /* Anti-clone: bloqueia seleção de texto e cópia visual */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  input, textarea { user-select: text; -webkit-user-select: text; }
+  img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
 
   /* ═══════════════════════════════════════════════════
      CURSOR GLOW  (antigravity-design-expert)
@@ -1068,7 +1078,27 @@
     background:var(--c-green);
     animation:ping 2s ease-in-out infinite;
   }
-  @media (max-width:480px) { #sp-toast { bottom:90px; max-width:240px; } }
+  @media (max-width:600px) { #sp-toast { bottom:90px; max-width:260px; left:12px; } }
+  @media (max-width:480px) { #sp-toast { max-width:240px; } }
+
+  /* ═══════════════════════════════════════════════════
+     RESPONSIVE — 768px (tablet portrait)
+  ═══════════════════════════════════════════════════ */
+  @media (max-width:768px) {
+    .reviews-grid       { grid-template-columns:1fr 1fr; }
+    .pricing-grid       { grid-template-columns:1fr; max-width:420px; }
+    .modal-box          { padding:32px 22px; }
+    .modal-x            { min-width:44px; min-height:44px; width:44px; height:44px; }
+  }
+
+  /* ═══════════════════════════════════════════════════
+     RESPONSIVE — 480px (mobile pequeno)
+  ═══════════════════════════════════════════════════ */
+  @media (max-width:480px) {
+    .modal-box          { padding:28px 16px; }
+    .hero-inner         { padding-left:16px; padding-right:16px; }
+    #sticky             { padding:10px 14px; gap:8px; }
+  }
   </style>
 </head>
 <body>
@@ -1107,8 +1137,8 @@
     </p>
 
     <div class="hero-ctas" id="hero-ctas">
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" aria-label="Garantir acesso por R$19,90">
-        <span class="btn-icon" aria-hidden="true">📚</span> GARANTIR ACESSO — R$19,90
+      <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green" aria-label="Garantir acesso por R$19,90">
+        GARANTIR ACESSO — R$19,90
       </a>
       <a href="#precos" class="btn btn-outline">Ver Planos</a>
     </div>
@@ -1214,7 +1244,7 @@
           <li class="feat-item"><span class="feat-dot" aria-hidden="true">✓</span>Acesso imediato após a compra</li>
         </ul>
         <div>
-          <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green">
+          <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green">
             QUERO MEU ACESSO
           </a>
         </div>
@@ -1242,7 +1272,7 @@
         <div class="book-img">
           <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/lNMGwr7258721.jpeg" alt="Corte de Espinhos e Rosas Vol 1" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
-          <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
+          <div class="book-overlay"><a href="https://go.pepperpay.com.br/p62de" class="book-overlay-btn">VER PLANO</a></div>
         </div>
         <div class="book-body">
           <div class="book-title">Corte de Espinhos e Rosas — Vol. 1</div>
@@ -1254,7 +1284,7 @@
         <div class="book-img">
           <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/wDSHoj7711586.jpeg" alt="Serpente e as Asas Feitas de Noite" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
-          <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
+          <div class="book-overlay"><a href="https://go.pepperpay.com.br/p62de" class="book-overlay-btn">VER PLANO</a></div>
         </div>
         <div class="book-body">
           <div class="book-title">Serpente e as Asas Feitas de Noite — Livro 1</div>
@@ -1266,7 +1296,7 @@
         <div class="book-img">
           <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/RAaJfe7875930.jpeg" alt="Box Os Bridgertons" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
-          <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
+          <div class="book-overlay"><a href="https://go.pepperpay.com.br/p62de" class="book-overlay-btn">VER PLANO</a></div>
         </div>
         <div class="book-body">
           <div class="book-title">Box — Os Bridgertons</div>
@@ -1278,7 +1308,7 @@
         <div class="book-img">
           <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/MzdEJt8617332.jpeg" alt="Mindset: A Nova Psicologia do Sucesso" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
-          <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
+          <div class="book-overlay"><a href="https://go.pepperpay.com.br/p62de" class="book-overlay-btn">VER PLANO</a></div>
         </div>
         <div class="book-body">
           <div class="book-title">Mindset: A Nova Psicologia do Sucesso</div>
@@ -1290,7 +1320,7 @@
         <div class="book-img">
           <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/hCYsKX8817171.jpeg" alt="Quarta Asa Vol 1" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
-          <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
+          <div class="book-overlay"><a href="https://go.pepperpay.com.br/p62de" class="book-overlay-btn">VER PLANO</a></div>
         </div>
         <div class="book-body">
           <div class="book-title">Quarta Asa — Vol. 1</div>
@@ -1302,7 +1332,7 @@
         <div class="book-img">
           <img src="https://media.atomicatpages.net/u/T0j91F4gcwZKeP3YltbBeFZ1yh72/Pictures/clone/page4759/74da2f4b.png" alt="O Poder do Hábito" loading="lazy" decoding="async" width="300" height="420" sizes="(max-width:768px) 45vw, 300px"/>
           <div class="book-badge">GRÁTIS</div>
-          <div class="book-overlay"><a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-overlay-btn">VER PLANO</a></div>
+          <div class="book-overlay"><a href="https://go.pepperpay.com.br/p62de" class="book-overlay-btn">VER PLANO</a></div>
         </div>
         <div class="book-body">
           <div class="book-title">O Poder do Hábito</div>
@@ -1310,7 +1340,7 @@
         </div>
       </article>
 
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="book-more" data-reveal="up" data-d="0.35" aria-label="Ver todos os 20.000 títulos">
+      <a href="https://go.pepperpay.com.br/p62de" class="book-more" data-reveal="up" data-d="0.35" aria-label="Ver todos os 20.000 títulos">
         <div class="more-spin" aria-hidden="true">✦</div>
         <p>E MUITOS OUTROS!</p>
         <small>+20.000 títulos inclusos</small>
@@ -1345,18 +1375,18 @@
       </h2>
     </div>
     <div class="genres-wrap" data-reveal="up" role="list" aria-label="Gêneros disponíveis">
-      <div class="genre-pill" role="listitem">💕 Romance</div>
-      <div class="genre-pill" role="listitem">👻 Terror</div>
-      <div class="genre-pill" role="listitem">🌹 Dark Romance</div>
-      <div class="genre-pill" role="listitem">🧙 Fantasia</div>
-      <div class="genre-pill" role="listitem">⚔️ Ação e Aventura</div>
-      <div class="genre-pill" role="listitem">🧠 Auto Ajuda</div>
-      <div class="genre-pill" role="listitem">💻 Técnicos</div>
-      <div class="genre-pill" role="listitem">✝️ Religiosos</div>
-      <div class="genre-pill" role="listitem">🧸 Infantis</div>
-      <div class="genre-pill" role="listitem">🔥 Adultos</div>
-      <div class="genre-pill" role="listitem">🆕 Lançamentos</div>
-      <div class="genre-pill" role="listitem" style="background:rgba(0,228,105,0.08);border-color:rgba(0,228,105,0.25);color:var(--c-green)">📚 Todos os Gêneros</div>
+      <div class="genre-pill" role="listitem">Romance</div>
+      <div class="genre-pill" role="listitem">Terror</div>
+      <div class="genre-pill" role="listitem">Dark Romance</div>
+      <div class="genre-pill" role="listitem">Fantasia</div>
+      <div class="genre-pill" role="listitem">Ação e Aventura</div>
+      <div class="genre-pill" role="listitem">Auto Ajuda</div>
+      <div class="genre-pill" role="listitem">Técnicos</div>
+      <div class="genre-pill" role="listitem">Religiosos</div>
+      <div class="genre-pill" role="listitem">Infantis</div>
+      <div class="genre-pill" role="listitem">Adultos</div>
+      <div class="genre-pill" role="listitem">Lançamentos</div>
+      <div class="genre-pill" role="listitem" style="background:rgba(0,228,105,0.08);border-color:rgba(0,228,105,0.25);color:var(--c-green)">Todos os Gêneros</div>
     </div>
     <div class="genre-note-box" data-reveal="up">
       <strong>São mais de 20.000 títulos disponíveis.</strong> Temos praticamente todos os livros que você imaginar.<br>
@@ -1424,8 +1454,8 @@
 
     <!-- CTA pós-reviews: captura no momento de maior confiança -->
     <div data-reveal="up" style="margin-top:48px;text-align:center;">
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:1rem;padding:18px 48px;">
-        <span class="btn-icon" aria-hidden="true">📚</span> QUERO MEU ACESSO AGORA — R$19,90
+      <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green" style="font-size:1rem;padding:18px 48px;">
+        QUERO MEU ACESSO AGORA — R$19,90
       </a>
       <p style="font-size:0.75rem;color:var(--c-t3);margin-top:10px;">✓ Garantia de 7 dias &nbsp;·&nbsp; ✓ Acesso imediato &nbsp;·&nbsp; ✓ Pagamento único</p>
     </div>
@@ -1563,7 +1593,7 @@
           <div class="pf"><span class="pf-check">✓</span> Acesso por 2 meses</div>
         </div>
         <div class="price-upgrade-note">Há uma opção mais completa disponível abaixo.</div>
-        <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" id="btn-basic" class="btn btn-outline btn-full">Acesso Básico →</a>
+        <a href="https://go.pepperpay.com.br/p62de" id="btn-basic" class="btn btn-outline btn-full">Acesso Básico →</a>
         <div class="price-note">Compra 100% segura</div>
       </div>
 
@@ -1587,7 +1617,7 @@
           <div class="pf"><span class="pf-check">✓</span> Grupo de Leitores (WhatsApp)</div>
           <div class="pf"><span class="pf-check">✓</span> Acesso vitalício</div>
         </div>
-        <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green btn-full">
+        <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green btn-full">
           GARANTA ACESSO IMEDIATO
         </a>
         <div class="price-note">Compra 100% segura</div>
@@ -1680,7 +1710,7 @@
         <p>Se você ama ler ou busca conhecimento nos livros, tenho certeza de que encontrou a <strong style="color:var(--c-white)">maior biblioteca digital do Brasil.</strong></p>
         <p style="color:var(--c-green);font-weight:600">Qualquer dúvida, eu e minha equipe estamos à disposição.</p>
         <div style="margin-top:28px;">
-          <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:0.95rem;padding:15px 36px;">
+          <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green" style="font-size:0.95rem;padding:15px 36px;">
             ACESSAR A BIBLIOTECA — R$19,90
           </a>
         </div>
@@ -1789,8 +1819,8 @@
     </div>
 
     <div data-reveal="up">
-      <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="font-size:1.05rem;padding:20px 52px" id="final-cta-btn">
-        <span class="btn-icon" aria-hidden="true">📚</span> GARANTIR MEU ACESSO — R$19,90
+      <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green" style="font-size:1.05rem;padding:20px 52px" id="final-cta-btn">
+        GARANTIR MEU ACESSO — R$19,90
       </a>
     </div>
     <div class="final-security" data-reveal="up">
@@ -1834,7 +1864,7 @@
       <span id="sticky-viewers" style="color:var(--c-gold);font-weight:700;">47 pessoas</span> viram essa oferta hoje
     </p>
   </div>
-  <a href="https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g" class="btn btn-green" style="white-space:nowrap">⚡ GARANTIR AGORA</a>
+  <a href="https://go.pepperpay.com.br/p62de" class="btn btn-green" style="white-space:nowrap">GARANTIR AGORA</a>
 </div>
 
 <!-- ══════════ SOCIAL PROOF TOAST ══════════ -->
@@ -1867,7 +1897,7 @@
       <div class="modal-feat"><span class="chk">✓</span> Grupo de Leitores no WhatsApp</div>
       <div class="modal-feat"><span class="chk">✓</span> Acesso vitalício — paga uma vez, para sempre</div>
     </div>
-    <a href="https://checkout.korvex.com.br/checkout/cmnj0c2h7085o1xp96u4ja4tz?offer=QH2E1P6" target="_blank" class="btn btn-green btn-full">Quero o Plano Premium — R$9,99</a>
+    <a href="https://go.pepperpay.com.br/thrwv" target="_blank" class="btn btn-green btn-full">Quero o Plano Premium — R$9,99</a>
     <button class="modal-decline" id="modalDecline">Não, prefiro só 2.500 livros por 2 meses (Básico)</button>
     <p style="margin-top:10px;font-size:0.72rem;color:var(--c-t3)">Compra 100% segura · Garantia de 7 dias</p>
   </div>
@@ -2057,7 +2087,7 @@
 
   /* ── Modal ── */
   const modal = document.getElementById('modal');
-  const basicUrl = 'https://checkout.korvex.com.br/checkout/cmnj11xlh0ae61rmjys1g2wa6?offer=7jkjz1g';
+  const basicUrl = 'https://go.pepperpay.com.br/p62de';
   const openModal = () => { modal.classList.add('open'); document.body.style.overflow = 'hidden'; };
   const closeModal = () => {
     modal.classList.remove('open');
@@ -2303,8 +2333,8 @@ document.body.addEventListener('click', function(e) {
   if (!el) return;
   var href = el.getAttribute('href') || '';
 
-  // Plano Premium (R$19,90) — links Korvex principais
-  if (href.indexOf('checkout.korvex.com.br') !== -1 && href.indexOf('cmnj11xlh0ae61rmjys1g2wa6') !== -1) {
+  // Plano Premium (R$19,90) — links PepperPay principais
+  if (href.indexOf('go.pepperpay.com.br/p62de') !== -1) {
     fbq('track', 'InitiateCheckout', {
       content_name: 'Biblioteca da Meia-Noite — Plano Premium',
       value: 19.90,
@@ -2313,7 +2343,7 @@ document.body.addEventListener('click', function(e) {
     });
   }
   // Oferta especial upsell (R$9,99) — link do modal
-  else if (href.indexOf('checkout.korvex.com.br') !== -1 && href.indexOf('cmnj0c2h7085o1xp96u4ja4tz') !== -1) {
+  else if (href.indexOf('go.pepperpay.com.br/thrwv') !== -1) {
     fbq('track', 'InitiateCheckout', {
       content_name: 'Biblioteca da Meia-Noite — Oferta Upsell R$9,99',
       value: 9.99,
@@ -2356,5 +2386,55 @@ window.pixelId = "69d00fd840faa89a70de9c23";
   async
   defer
 ></script>
+
+<!-- ── Proteção anti-clone ── -->
+<script>
+(function(){
+  'use strict';
+
+  /* Bloqueia clique direito */
+  document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+
+  /* Bloqueia atalhos de DevTools e visualização de código */
+  document.addEventListener('keydown', function(e){
+    var k = e.key || e.keyCode;
+    /* F12 */
+    if (k === 'F12' || k === 123) { e.preventDefault(); return; }
+    if (e.ctrlKey || e.metaKey) {
+      var key = (typeof k === 'string') ? k.toLowerCase() : k;
+      /* Ctrl+U (view-source), Ctrl+S (save), Ctrl+P (print/source) */
+      if (key === 'u' || key === 's' || key === 'p') { e.preventDefault(); return; }
+      if (e.shiftKey) {
+        /* Ctrl+Shift+I (DevTools), Ctrl+Shift+J (Console), Ctrl+Shift+C (Inspector) */
+        if (key === 'i' || key === 'j' || key === 'c') { e.preventDefault(); return; }
+      }
+    }
+  });
+
+  /* Bloqueia arrastar imagens */
+  document.addEventListener('dragstart', function(e){
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+
+  /* Bloqueia seleção de texto fora de inputs */
+  document.addEventListener('selectstart', function(e){
+    var tag = e.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    e.preventDefault();
+  });
+
+  /* Detecção de DevTools aberto via tamanho de janela */
+  var _threshold = 160;
+  setInterval(function(){
+    if (
+      window.outerWidth - window.innerWidth > _threshold ||
+      window.outerHeight - window.innerHeight > _threshold
+    ) {
+      document.body.innerHTML = '';
+      window.location.reload();
+    }
+  }, 1000);
+})();
+</script>
 </body>
 </html>
